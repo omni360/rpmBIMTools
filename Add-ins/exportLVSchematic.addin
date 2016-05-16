@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+        <AddIn Type="Command">
+        <Assembly>C:\rpmBIM\progs\rpmBIMTools2015.dll</Assembly>
+        <AddInId>233BD853-36E4-461e-7171-D5ACEDA4E723</AddInId>
+        <FullClassName>rpmBIMTools.exportLVSchematic</FullClassName>
+        <Text>Export LV Schematic</Text>  
+        <VendorId>NGB</VendorId>
+        <VendorDescription>Description>NG Bailey, www.ngbaiey.co.uk</VendorDescription>
+        </AddIn>
+</RevitAddIns>

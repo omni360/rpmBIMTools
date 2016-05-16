@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+        <AddIn Type="Command">
+        <Assembly>C:\rpmBIM\progs\rpmBIMTools2015.dll</Assembly>
+        <AddInId>6f9855d1-0261-474e-96c3-03737c9e87fa</AddInId>
+        <FullClassName>rpmBIMTools.toggleSectionBox</FullClassName>
+        <Text>Toggle Section Box</Text>  
+        <VendorId>NGB</VendorId>
+        <VendorDescription>Description>NG Bailey, www.ngbaiey.co.uk</VendorDescription>
+        </AddIn>
+</RevitAddIns>

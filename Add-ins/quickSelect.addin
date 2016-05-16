@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+        <AddIn Type="Command">
+        <Assembly>C:\rpmBIM\progs\rpmBIMTools2015.dll</Assembly>
+        <AddInId>233BD853-36E4-461f-7171-D5ACEDA4E722</AddInId>
+        <FullClassName>rpmBIMTools.quickSelect</FullClassName>
+        <Text>Quick Select</Text>  
+        <VendorId>NGB</VendorId>
+        <VendorDescription>Description>NG Bailey, www.ngbaiey.co.uk</VendorDescription>
+        </AddIn>
+</RevitAddIns>

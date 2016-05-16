@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+        <AddIn Type="Command">
+        <Assembly>C:\rpmBIM\progs\rpmBIMTools2015.dll</Assembly>
+        <AddInId>e8b9bc25-a7de-470b-97d3-69d429a08599</AddInId>
+        <FullClassName>rpmBIMTools.projectSetup</FullClassName>
+        <Text>Project Setup</Text>  
+        <VendorId>NGB</VendorId>
+        <VendorDescription>Description>NG Bailey, www.ngbaiey.co.uk</VendorDescription>
+        </AddIn>
+</RevitAddIns>

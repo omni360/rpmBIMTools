@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+        <AddIn Type="Command">
+        <Assembly>C:\rpmBIM\progs\rpmBIMTools2015.dll</Assembly>
+        <AddInId>ef027ed8-1683-4697-b35a-c7ad671dbf6a</AddInId>
+        <FullClassName>rpmBIMTools.createSectionBox</FullClassName>
+        <Text>Create Section Box</Text>  
+        <VendorId>NGB</VendorId>
+        <VendorDescription>Description>NG Bailey, www.ngbaiey.co.uk</VendorDescription>
+        </AddIn>
+</RevitAddIns>

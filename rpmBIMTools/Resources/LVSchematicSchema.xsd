@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="schematic">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name" />
+        <xs:element ref="settings" />
+        <xs:element ref="bus1" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="bus2" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="lifeSafetySection" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="notes" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="name">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="[a-zA-Z0-9 ]+" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="settings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="includeSheet" />
+        <xs:element ref="includeTerminations" />
+        <xs:element ref="includeSchedule" />
+        <xs:element ref="includeSurgeSuppression" />
+        <xs:element ref="includeExternalEarthBar" />
+        <xs:element ref="includeInternalEarthBar" />
+        <xs:element ref="includeInterTripping" />
+        <xs:element ref="includeMeteringOnMain" />
+        <xs:element ref="includeRestrictedEarthFaultRelay" />
+        <xs:element ref="includeOvercurrentRelay" />
+        <xs:element ref="includeEarthFaultRelay" />
+        <xs:element ref="includeNeutralEarthLink" />
+        <xs:element ref="includeCastellInterlock" />
+        <xs:element ref="includeElectricalInterlock" />
+        <xs:element ref="includeMechanicalInterlock" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="includeSheet">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeTerminations">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeSchedule">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeSurgeSuppression">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeExternalEarthBar">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeInternalEarthBar">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeInterTripping">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeMeteringOnMain">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeRestrictedEarthFaultRelay">
+        <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeOvercurrentRelay">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeEarthFaultRelay">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeNeutralEarthLink">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeCastellInterlock">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeElectricalInterlock">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="includeMechanicalInterlock">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="bus1">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="circuit" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="supplyTransformer" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="supplyGenerator" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="powerFactorCorrection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="circuit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ref" />
+        <xs:element ref="size" />
+        <xs:element ref="type" />
+        <xs:element ref="length" />
+        <xs:element ref="description" />
+        <xs:element ref="metered" />
+        <xs:element ref="device" />
+        <xs:element ref="connectedLoad" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ref" type="xs:string" />
+  <xs:element name="size" type="xs:string" />
+  <xs:element name="type" type="xs:string" />
+  <xs:element name="length" type="xs:string" />
+  <xs:element name="description" type="xs:string" />
+  <xs:element name="metered">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="true|false" />
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="device">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="type" />
+        <xs:element ref="ref" />
+        <xs:element ref="frame" />
+        <xs:element ref="rating" />
+        <xs:element ref="poles" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="frame" type="xs:string" />
+  <xs:element name="rating" type="xs:string" />
+  <xs:element name="poles" type="xs:string" />
+  <xs:element name="connectedLoad">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="type" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="dbReference" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="dbWays" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="dbRating" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="dbPhase" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="dbIF" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="dbIB" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="dbZS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dbReference" type="xs:string" />
+  <xs:element name="dbWays" type="xs:string" />
+  <xs:element name="dbRating" type="xs:string" />
+  <xs:element name="dbPhase" type="xs:string" />
+  <xs:element name="dbIF" type="xs:string" />
+  <xs:element name="dbIB" type="xs:string" />
+  <xs:element name="dbZS" type="xs:string" />
+  <xs:element name="supplyTransformer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ref" />
+        <xs:element ref="rating" />
+        <xs:element ref="voltage" />
+        <xs:element ref="vectorGroup" />
+        <xs:element ref="type" />
+        <xs:element ref="cooling" />
+        <xs:element ref="linkBridge" />
+      </xs:sequence>
+      <xs:attribute name="location" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="Internal" />
+            <xs:enumeration value="External" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="voltage" type="xs:string" />
+  <xs:element name="vectorGroup" type="xs:string" />
+  <xs:element name="cooling" type="xs:string" />
+  <xs:element name="linkBridge">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ref" />
+        <xs:element ref="frame" />
+        <xs:element ref="rating" />
+        <xs:element ref="poles" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="supplyGenerator">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ref" />
+        <xs:element ref="rating" />
+        <xs:element ref="linkBridge" />
+      </xs:sequence>
+      <xs:attribute name="location" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="Internal" />
+            <xs:enumeration value="External" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="powerFactorCorrection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="type" />
+        <xs:element ref="total" />
+        <xs:element ref="steps" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="total" type="xs:int" />
+  <xs:element name="steps" type="xs:int" />
+  <xs:element name="bus2">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="1">
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="circuit" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="supplyTransformer" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="supplyGenerator" />
+        <xs:element minOccurs="0" maxOccurs="1" ref="powerFactorCorrection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lifeSafetySection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="lsCircuit" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lsCircuit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ref" />
+        <xs:element ref="size" />
+        <xs:element ref="type" />
+        <xs:element ref="length" />
+        <xs:element ref="description" />
+        <xs:element ref="device" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="notes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="note" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="note" type="xs:string" />
+</xs:schema>

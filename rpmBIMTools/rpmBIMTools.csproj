@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{44E9FB91-BBC4-42E4-90E0-12DB64CB8A72}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>rpmBIMTools</RootNamespace>
+    <AssemblyName>rpmBIMTools</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2015|AnyCPU'">
+    <OutputPath>..\..\..\..\..\rpmBIM\progs\</OutputPath>
+    <DefineConstants>REVIT2015</DefineConstants>
+    <AssemblyName>rpmBIMTools2015</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2016|AnyCPU'">
+    <OutputPath>..\..\..\..\..\rpmBIM\progs\</OutputPath>
+    <DefineConstants>REVIT2016</DefineConstants>
+    <AssemblyName>rpmBIMTools2016</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2017|AnyCPU'">
+    <OutputPath>..\..\..\..\..\rpmBIM\progs\</OutputPath>
+    <DefineConstants>REVIT2017</DefineConstants>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AssemblyName>rpmBIMTools2017</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.5\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RevitAPI" Condition=" '$(Configuration)' == '2015'">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI" Condition=" '$(Configuration)' == '2015'">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPI" Condition=" '$(Configuration)' == '2016'">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2016\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI" Condition=" '$(Configuration)' == '2016'">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2016\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPI" Condition=" '$(Configuration)' == '2017'">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2017\RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI" Condition=" '$(Configuration)' == '2017'">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2017\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin Tools\Generate GUID\generateDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin Tools\Generate GUID\generateDialog.Designer.cs">
+      <DependentUpon>generateDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project Tools\Project Sheet Duplicator\projectSheetSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Project Tools\Project Sheet Duplicator\projectSheetSettings.Designer.cs">
+      <DependentUpon>projectSheetSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project Tools\Project Sheet Duplicator\projectSheetDuplicator.cs" />
+    <Compile Include="rpmBIMTools.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Schematic\Create.cs" />
+    <Compile Include="Schematic\importLVSchematic.cs" />
+    <Compile Include="Schematic\exportLVSchematic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Schematic\exportLVSchematic.Designer.cs">
+      <DependentUpon>exportLVSchematic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project Tools\Export Model\exportModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Project Tools\Export Model\exportModel.Designer.cs">
+      <DependentUpon>exportModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project Tools\Project Setup\projectSetupElements.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Project Tools\Project Setup\projectSetupElements.Designer.cs">
+      <DependentUpon>projectSetupElements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project Tools\Project Setup\projectSetupInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Project Tools\Project Setup\projectSetupInformation.Designer.cs">
+      <DependentUpon>projectSetupInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project Tools\Project Setup\projectSetupFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Project Tools\Project Setup\projectSetupFiles.Designer.cs">
+      <DependentUpon>projectSetupFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project Tools\Project Setup\projectSetup.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Tools\toggleSectionBox.cs" />
+    <Compile Include="Visual Tools\createSectionBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Visual Tools\createSectionBox.Designer.cs">
+      <DependentUpon>createSectionBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Tools\purgeScopeBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Visual Tools\purgeScopeBox.Designer.cs">
+      <DependentUpon>purgeScopeBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Select Edit\familyNameEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Select Edit\familyNameEditor.Designer.cs">
+      <DependentUpon>familyNameEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Select Edit\quickSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Select Edit\quickSelect.Designer.cs">
+      <DependentUpon>quickSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="Utils\rpmBIMExt.cs" />
+    <Compile Include="Utils\rpmBIMUtils.cs" />
+    <Compile Include="Utils\ProcessingWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\ProcessingWindow.Designer.cs">
+      <DependentUpon>ProcessingWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Sub-Disciplines.cs" />
+    <Compile Include="Utils\WaitingWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\WaitingWindow.Designer.cs">
+      <DependentUpon>WaitingWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project Tools\Drawing Number Calculator\DwgNumCalc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Project Tools\Drawing Number Calculator\DwgNumCalc.Designer.cs">
+      <DependentUpon>DwgNumCalc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Discontinued\issuePlot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Discontinued\issuePlot.Designer.cs">
+      <DependentUpon>issuePlot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Schematic\createLVSchematic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Schematic\createLVSchematic.Designer.cs">
+      <DependentUpon>createLVSchematic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Admin Tools\Generate GUID\generateDialog.resx">
+      <DependentUpon>generateDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schematic\exportLVSchematic.resx">
+      <DependentUpon>exportLVSchematic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Project Tools\Export Model\exportModel.resx">
+      <DependentUpon>exportModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Project Tools\Project Setup\projectSetupElements.resx">
+      <DependentUpon>projectSetupElements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Project Tools\Project Setup\projectSetupInformation.resx">
+      <DependentUpon>projectSetupInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Project Tools\Project Setup\projectSetupFiles.resx">
+      <DependentUpon>projectSetupFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Tools\createSectionBox.resx">
+      <DependentUpon>createSectionBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Tools\purgeScopeBox.resx">
+      <DependentUpon>purgeScopeBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Select Edit\familyNameEditor.resx">
+      <DependentUpon>familyNameEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Project Tools\Project Sheet Duplicator\projectSheetSettings.resx">
+      <DependentUpon>projectSheetSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Select Edit\quickSelect.resx">
+      <DependentUpon>quickSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\ProcessingWindow.resx">
+      <DependentUpon>ProcessingWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\WaitingWindow.resx">
+      <DependentUpon>WaitingWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Project Tools\Drawing Number Calculator\DwgNumCalc.resx">
+      <DependentUpon>DwgNumCalc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Discontinued\issuePlot.resx">
+      <DependentUpon>issuePlot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schematic\createLVSchematic.resx">
+      <DependentUpon>createLVSchematic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="Resources\LVSchematicSchema.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Admin Tools\Bulk File Updater\" />
+    <Folder Include="Schedule\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
