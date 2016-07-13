@@ -12,7 +12,7 @@ namespace rpmBIMTools.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -356,6 +356,66 @@ namespace rpmBIMTools.Properties {
             }
             set {
                 this["quickSelect_selectionApplyToIncludeExclude"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string exportImportSchedule_OutputFolder {
+            get {
+                return ((string)(this["exportImportSchedule_OutputFolder"]));
+            }
+            set {
+                this["exportImportSchedule_OutputFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string familyLibrary_savedDirectory {
+            get {
+                return ((string)(this["familyLibrary_savedDirectory"]));
+            }
+            set {
+                this["familyLibrary_savedDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool familyLibrary_allTypes {
+            get {
+                return ((bool)(this["familyLibrary_allTypes"]));
+            }
+            set {
+                this["familyLibrary_allTypes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("850")]
+        public int familyLibrary_height {
+            get {
+                return ((int)(this["familyLibrary_height"]));
+            }
+            set {
+                this["familyLibrary_height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int familyLibrary_width {
+            get {
+                return ((int)(this["familyLibrary_width"]));
+            }
+            set {
+                this["familyLibrary_width"] = value;
             }
         }
     }

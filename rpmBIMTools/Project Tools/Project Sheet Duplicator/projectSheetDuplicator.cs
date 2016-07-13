@@ -37,7 +37,7 @@ namespace rpmBIMTools
             username = username.ToUpper().Substring(username.Length - 1, 1) + " " + username.Substring(0, 1) + username.Substring(1, username.Length - 2);
 
             // Check if the document is a valid NGB Template
-            if (doc.isNGBTemplate()) {
+            if (!doc.isNGBTemplate()) {
                 TaskDialog.Show("Project Sheet Duplicator", "Utililty can only be used on a NGB Template");
                 return Result.Failed;
             }
@@ -155,133 +155,132 @@ namespace rpmBIMTools
                     string templateDiscipline = templateView.LookupParameter(disciplineParameter).AsString();
                     string templateDisciplineCode = templateDiscipline[0] + "-" + templateDiscipline.Substring(1, 2);
 
-                        using (Transaction t = new Transaction(doc, "Creating Sheets for " + templateDiscipline))
+                    using (Transaction t = new Transaction(doc, "Creating Sheets for " + templateDiscipline))
+                    {
+                        t.Start();
+
+                        // Loop through the sheets required to be created
+                        foreach (ViewSheet sheet in sheets)
                         {
-                            t.Start();
-
-                            // Loop through the sheets required to be created
-                            foreach (ViewSheet sheet in sheets)
+                            // ViewSheet Checks
+                            if (sheet.GetAllPlacedViews().Count() == 0 ||
+                                !titleBlocks.Any(fi => fi.OwnerViewId == sheet.Id) ||
+                                !sheet.IsValidNGBDwgNum())
                             {
-                                // ViewSheet Checks
-                                if (sheet.GetAllPlacedViews().Count() == 0 ||
-                                    !titleBlocks.Any(fi => fi.OwnerViewId == sheet.Id) ||
-                                    !sheet.IsValidNGBDwgNum())
-                                {
-                                    count += 1;
-                                    prc += step;
-                                    continue;
-                                }
-
-                                // Get titleBlock used on sheet
-                                FamilyInstance titleBlock = titleBlocks.FirstOrDefault(fi => fi.OwnerViewId == sheet.Id);
-
-                                // Get sheet parameters for future use
-                                string newSheetCode = sheet.SheetNumber.Substring(0, 9) + templateDisciplineCode;
-                                int newSheetCount = 0;
-                                for (int i = 1; i < 100; i++)
-                                {
-                                    if (allSheets.Any(v => v.SheetNumber == newSheetCode + i.ToString("00"))) continue;
-                                    newSheetCount = i;
-                                    break;
-                                }
-                                string newSheetNumber = newSheetCode + newSheetCount.ToString("00");
-                                string service = Get_ServiceName(templateDiscipline);
-                                string level = Get_Level(newSheetCode.ToUpper());
-                                string zone = Get_Zone(newSheetCode.ToUpper());
-
-                                // Updating process window
-                                process.Update(Convert.ToInt32(prc += step), "Duplicating Sheet " + (count += 1) + " of " + totalCount + " (" + Convert.ToInt32(prc) + "%)\n\n" + sheet.SheetNumber + " => " + newSheetNumber);
-
-                                // Create new sheet and set parameters
-                                ViewSheet newSheet = ViewSheet.Create(doc, titleBlock.GetTypeId());
-                                newSheet.LookupParameter(disciplineParameter).Set(templateDiscipline);
-                                newSheet.get_Parameter(BuiltInParameter.SHEET_DRAWN_BY).Set(username);
-                                newSheet.get_Parameter(BuiltInParameter.SHEET_ISSUE_DATE).Set(DateTime.Today.ToString("dd/MM/yy"));
-                                newSheet.get_Parameter(BuiltInParameter.SHEET_NUMBER).Set(newSheetNumber);
-                                newSheet.get_Parameter(BuiltInParameter.SHEET_NAME).Set(Get_DwgNum(newSheetCode.ToUpper(), templateDiscipline, newSheetCount.ToString()));
-                                if (newSheet.LookupParameter("STATUS") != null)
-                                    newSheet.LookupParameter("STATUS").Set("S3 - For Review & Comment");
-                                allSheets.Add(newSheet);
-
-                                // Skip legend creation if no legends exist, revit limitation, cannot create your own legend from api
-                                if (duplicator.includeLegends.Checked && legendViews.Count != 0)
-                                {
-                                    // Select or create legend by discipline
-                                    Autodesk.Revit.DB.View legend = legendViews.Where(v => v.ViewName == templateDiscipline).FirstOrDefault();
-                                    if (legend == null)
-                                    {
-                                        legend = doc.GetElement(legendViews.First().Duplicate(ViewDuplicateOption.WithDetailing)) as Autodesk.Revit.DB.View;
-                                        legend.ViewName = templateDiscipline;
-                                        TextNote noteText = new FilteredElementCollector(doc, legend.Id)
-                                            .OfClass(typeof(TextNote))
-                                            .Cast<TextNote>()
-                                            .FirstOrDefault(lt => lt.TextNoteType.Name == "2mm");
-                                        if (noteText != null)
-                                            noteText.Text = "Notes:\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet id urna quis maximus. Integer interdum sollicitudin urna, vel gravida magna vestibulum et. Duis aliquam auctor magna, eu lacinia libero pretium id. Morbi nec augue ut urna maximus eleifend vel sit amet erat. Integer id lobortis sapien, sed mollis magna. Mauris nulla leo, consectetur ac sagittis vel, faucibus nec ex. Mauris nec pulvinar lorem. Quisque quam magna, pharetra quis ipsum ut, vestibulum vehicula urna. Aenean neque sem, eleifend eu porttitor quis, commodo quis diam. Aenean egestas id leo ac ultrices. Phasellus sodales augue quis metus vulputate pellentesque.";
-                                        doc.Regenerate();
-                                        legendViews.Add(legend);
-                                    }
-                                    Viewport legendViewPort = Viewport.Create(doc, newSheet.Id, legend.Id, XYZ.Zero);
-                                    double legendWidth = legendViewPort.GetBoxOutline().MaximumPoint.X - legendViewPort.GetBoxOutline().MinimumPoint.X;
-                                    double legendHeight = legendViewPort.GetBoxOutline().MaximumPoint.Y - legendViewPort.GetBoxOutline().MinimumPoint.Y;
-                                    // Offset by NGB sheet size
-                                    double offsetWidth = titleBlock.Name.Contains("A4") ? -0.052 : titleBlock.Name.Contains("A3") ? -0.052 :
-                                        titleBlock.Name.Contains("A2") ? -0.41 : titleBlock.Name.Contains("A1") ? -0.052 : -0.052;
-                                    double offsetHeight = titleBlock.Name.Contains("A4") ? 0.39 : titleBlock.Name.Contains("A3") ? 0.59 :
-                                        titleBlock.Name.Contains("A2") ? 1.10 : titleBlock.Name.Contains("A1") ? 1.22 : 2.10;
-                                    legendViewPort.Location.Move(new XYZ(offsetWidth - (legendWidth / 2), offsetHeight - (legendHeight / 2), 0));
-                                }
-
-                                // Get Viewsports / views on sheet
-                                foreach (ElementId viewPortId in sheet.GetAllViewports())
-                                {
-                                    // View Checks, only viewSheet allowed at this time
-                                    Viewport viewPort = doc.GetElement(viewPortId) as Viewport;
-                                    if (viewPort == null) continue;
-                                    Autodesk.Revit.DB.View view = doc.GetElement(viewPort.ViewId) as Autodesk.Revit.DB.View;
-                                    if (view == null) continue;
-                                    if (view.ViewType != ViewType.FloorPlan) continue;
-
-                                    // Create the host service level / view 
-                                    Autodesk.Revit.DB.View serviceLevelView = new FilteredElementCollector(doc)
-                                    .OfClass(typeof(Autodesk.Revit.DB.View))
-                                    .Cast<Autodesk.Revit.DB.View>()
-                                    .FirstOrDefault(v => v.ViewName == service + " - " + level);
-                                    if (serviceLevelView == null)
-                                    {
-                                        if (view.GetPrimaryViewId() != ElementId.InvalidElementId)
-                                        {
-                                            Autodesk.Revit.DB.View primeView = doc.GetElement(view.GetPrimaryViewId()) as Autodesk.Revit.DB.View;
-                                            serviceLevelView = doc.GetElement(primeView.Duplicate(ViewDuplicateOption.WithDetailing)) as Autodesk.Revit.DB.View;
-                                        }
-                                        else
-                                        {
-                                            serviceLevelView = ViewPlan.Create(doc, view.GetTypeId(), view.GenLevel.Id);
-                                        }
-                                        serviceLevelView.ViewName = service + " - " + level;
-                                        serviceLevelView.ApplyViewTemplateParameters(templateView);
-                                        serviceLevelView.ViewTemplateId = templateView.Id;
-                                    }
-
-                                    // Create the AsDependent views per zone / sheet
-                                    Autodesk.Revit.DB.View newView = doc.GetElement(serviceLevelView.Duplicate(ViewDuplicateOption.AsDependent)) as Autodesk.Revit.DB.View;
-                                    if (view.get_Parameter(BuiltInParameter.VIEWER_VOLUME_OF_INTEREST_CROP).AsElementId() != null)
-                                        newView.get_Parameter(BuiltInParameter.VIEWER_VOLUME_OF_INTEREST_CROP).Set(view.get_Parameter(BuiltInParameter.VIEWER_VOLUME_OF_INTEREST_CROP).AsElementId());
-                                    string viewName = service + " - " + level + " - " + zone + " - Sheet " + newSheetCount + " - View " + (newSheet.GetAllViewports().Count);
-                                    newView.get_Parameter(BuiltInParameter.VIEW_DESCRIPTION).Set(viewName);
-                                    newView.CropBox = view.CropBox;
-                                    newView.CropBoxActive = view.CropBoxActive;
-                                    newView.CropBoxVisible = view.CropBoxVisible;
-                                    Viewport newViewPort = Viewport.Create(doc, newSheet.Id, newView.Id, viewPort.GetBoxCenter());
-                                    newViewPort.get_Parameter(BuiltInParameter.VIEWER_ANNOTATION_CROP_ACTIVE)
-                                        .Set(viewPort.get_Parameter(BuiltInParameter.VIEWER_ANNOTATION_CROP_ACTIVE).AsInteger());
-                                    doc.Regenerate();
-                                    newViewPort.SetBoxCenter(viewPort.GetBoxCenter());
-                                    newView.ViewName = viewName;
-                                }
+                                count += 1;
+                                prc += step;
+                                continue;
                             }
-                            t.Commit();
+
+                            // Get titleBlock used on sheet
+                            FamilyInstance titleBlock = titleBlocks.FirstOrDefault(fi => fi.OwnerViewId == sheet.Id);
+
+                            // Get sheet parameters for future use
+                            string newSheetCode = sheet.SheetNumber.Substring(0, 9) + templateDisciplineCode;
+                            int newSheetCount = 0;
+                            for (int i = 1; i < 100; i++)
+                            {
+                                if (allSheets.Any(v => v.SheetNumber == newSheetCode + i.ToString("00"))) continue;
+                                newSheetCount = i;
+                                break;
+                            }
+                            string newSheetNumber = newSheetCode + newSheetCount.ToString("00");
+                            string service = Get_ServiceName(templateDiscipline);
+                            string level = Get_Level(newSheetCode.ToUpper());
+                            string zone = Get_Zone(newSheetCode.ToUpper());
+
+                            // Updating process window
+                            process.Update(Convert.ToInt32(prc += step), "Duplicating Sheet " + (count += 1) + " of " + totalCount + " (" + Convert.ToInt32(prc) + "%)\n\n" + sheet.SheetNumber + " => " + newSheetNumber);
+
+                            // Create new sheet and set parameters
+                            ViewSheet newSheet = ViewSheet.Create(doc, titleBlock.GetTypeId());
+                            newSheet.get_Parameter(BuiltInParameter.SHEET_DRAWN_BY).Set(username);
+                            newSheet.get_Parameter(BuiltInParameter.SHEET_ISSUE_DATE).Set(DateTime.Today.ToString("dd/MM/yy"));
+                            newSheet.get_Parameter(BuiltInParameter.SHEET_NUMBER).Set(newSheetNumber);
+                            newSheet.get_Parameter(BuiltInParameter.SHEET_NAME).Set(Get_DwgNum(newSheetCode.ToUpper(), templateDiscipline, newSheetCount.ToString()));
+                            newSheet.SetStatus("S3 - For Review & Comment");
+                            newSheet.SetSubDiscipline(templateDiscipline);
+                            allSheets.Add(newSheet);
+
+                            // Skip legend creation if no legends exist, revit limitation, cannot create your own legend from api
+                            if (duplicator.includeLegends.Checked && legendViews.Count != 0)
+                            {
+                                // Select or create legend by discipline
+                                Autodesk.Revit.DB.View legend = legendViews.Where(v => v.ViewName == templateDiscipline).FirstOrDefault();
+                                if (legend == null)
+                                {
+                                    legend = doc.GetElement(legendViews.First().Duplicate(ViewDuplicateOption.WithDetailing)) as Autodesk.Revit.DB.View;
+                                    legend.ViewName = templateDiscipline;
+                                    TextNote noteText = new FilteredElementCollector(doc, legend.Id)
+                                        .OfClass(typeof(TextNote))
+                                        .Cast<TextNote>()
+                                        .FirstOrDefault(lt => lt.TextNoteType.Name == "2mm");
+                                    if (noteText != null)
+                                        noteText.Text = "Notes:\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet id urna quis maximus. Integer interdum sollicitudin urna, vel gravida magna vestibulum et. Duis aliquam auctor magna, eu lacinia libero pretium id. Morbi nec augue ut urna maximus eleifend vel sit amet erat. Integer id lobortis sapien, sed mollis magna. Mauris nulla leo, consectetur ac sagittis vel, faucibus nec ex. Mauris nec pulvinar lorem. Quisque quam magna, pharetra quis ipsum ut, vestibulum vehicula urna. Aenean neque sem, eleifend eu porttitor quis, commodo quis diam. Aenean egestas id leo ac ultrices. Phasellus sodales augue quis metus vulputate pellentesque.";
+                                    doc.Regenerate();
+                                    legendViews.Add(legend);
+                                }
+                                Viewport legendViewPort = Viewport.Create(doc, newSheet.Id, legend.Id, XYZ.Zero);
+                                double legendWidth = legendViewPort.GetBoxOutline().MaximumPoint.X - legendViewPort.GetBoxOutline().MinimumPoint.X;
+                                double legendHeight = legendViewPort.GetBoxOutline().MaximumPoint.Y - legendViewPort.GetBoxOutline().MinimumPoint.Y;
+                                // Offset by NGB sheet size
+                                double offsetWidth = titleBlock.Name.Contains("A4") ? -0.052 : titleBlock.Name.Contains("A3") ? -0.052 :
+                                    titleBlock.Name.Contains("A2") ? -0.41 : titleBlock.Name.Contains("A1") ? -0.052 : -0.052;
+                                double offsetHeight = titleBlock.Name.Contains("A4") ? 0.39 : titleBlock.Name.Contains("A3") ? 0.59 :
+                                    titleBlock.Name.Contains("A2") ? 1.10 : titleBlock.Name.Contains("A1") ? 1.22 : 2.10;
+                                legendViewPort.Location.Move(new XYZ(offsetWidth - (legendWidth / 2), offsetHeight - (legendHeight / 2), 0));
+                            }
+
+                            // Get Viewsports / views on sheet
+                            foreach (ElementId viewPortId in sheet.GetAllViewports())
+                            {
+                                // View Checks, only viewSheet allowed at this time
+                                Viewport viewPort = doc.GetElement(viewPortId) as Viewport;
+                                if (viewPort == null) continue;
+                                Autodesk.Revit.DB.View view = doc.GetElement(viewPort.ViewId) as Autodesk.Revit.DB.View;
+                                if (view == null) continue;
+                                if (view.ViewType != ViewType.FloorPlan) continue;
+
+                                // Create the host service level / view 
+                                Autodesk.Revit.DB.View serviceLevelView = new FilteredElementCollector(doc)
+                                .OfClass(typeof(Autodesk.Revit.DB.View))
+                                .Cast<Autodesk.Revit.DB.View>()
+                                .FirstOrDefault(v => v.ViewName == service + " - " + level);
+                                if (serviceLevelView == null)
+                                {
+                                    if (view.GetPrimaryViewId() != ElementId.InvalidElementId)
+                                    {
+                                        Autodesk.Revit.DB.View primeView = doc.GetElement(view.GetPrimaryViewId()) as Autodesk.Revit.DB.View;
+                                        serviceLevelView = doc.GetElement(primeView.Duplicate(ViewDuplicateOption.WithDetailing)) as Autodesk.Revit.DB.View;
+                                    }
+                                    else
+                                    {
+                                        serviceLevelView = ViewPlan.Create(doc, view.GetTypeId(), view.GenLevel.Id);
+                                    }
+                                    serviceLevelView.ViewName = service + " - " + level;
+                                    serviceLevelView.ApplyViewTemplateParameters(templateView);
+                                    serviceLevelView.ViewTemplateId = templateView.Id;
+                                }
+
+                                // Create the AsDependent views per zone / sheet
+                                Autodesk.Revit.DB.View newView = doc.GetElement(serviceLevelView.Duplicate(ViewDuplicateOption.AsDependent)) as Autodesk.Revit.DB.View;
+                                if (view.get_Parameter(BuiltInParameter.VIEWER_VOLUME_OF_INTEREST_CROP).AsElementId() != null)
+                                    newView.get_Parameter(BuiltInParameter.VIEWER_VOLUME_OF_INTEREST_CROP).Set(view.get_Parameter(BuiltInParameter.VIEWER_VOLUME_OF_INTEREST_CROP).AsElementId());
+                                string viewName = service + " - " + level + " - " + zone + " - Sheet " + newSheetCount + " - View " + (newSheet.GetAllViewports().Count);
+                                newView.get_Parameter(BuiltInParameter.VIEW_DESCRIPTION).Set(viewName);
+                                newView.CropBox = view.CropBox;
+                                newView.CropBoxActive = view.CropBoxActive;
+                                newView.CropBoxVisible = view.CropBoxVisible;
+                                Viewport newViewPort = Viewport.Create(doc, newSheet.Id, newView.Id, viewPort.GetBoxCenter());
+                                newViewPort.get_Parameter(BuiltInParameter.VIEWER_ANNOTATION_CROP_ACTIVE)
+                                    .Set(viewPort.get_Parameter(BuiltInParameter.VIEWER_ANNOTATION_CROP_ACTIVE).AsInteger());
+                                doc.Regenerate();
+                                newViewPort.SetBoxCenter(viewPort.GetBoxCenter());
+                                newView.ViewName = viewName;
+                            }
                         }
+                        t.Commit();
+                    }
                 }
                 process.Close();
                 process.Dispose();

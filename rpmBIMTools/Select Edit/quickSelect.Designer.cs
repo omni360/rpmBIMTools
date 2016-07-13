@@ -102,6 +102,7 @@
             // 
             // selectButton
             // 
+            this.selectButton.Enabled = false;
             this.selectButton.Location = new System.Drawing.Point(64, 449);
             this.selectButton.Name = "selectButton";
             this.selectButton.Size = new System.Drawing.Size(100, 25);
@@ -186,12 +187,6 @@
             // selectionValue
             // 
             this.selectionValue.FormattingEnabled = true;
-            this.selectionValue.Items.AddRange(new object[] {
-            "< Less Than",
-            "<> Not Equal",
-            "= Equal",
-            "> Greater Than",
-            "Select All"});
             this.selectionValue.Location = new System.Drawing.Point(106, 312);
             this.selectionValue.Name = "selectionValue";
             this.selectionValue.Size = new System.Drawing.Size(177, 21);

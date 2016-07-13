@@ -24,6 +24,7 @@ namespace rpmBIMTools
         private Transaction t = null;
         private PreviewControl previewControl = null;
         private BoundingBoxXYZ sectionBoundingBox = new BoundingBoxXYZ();
+        private IList<View3D> all3dViews = new List<View3D>();
         public ICollection<Element> selectedElements = new List<Element>();
         public string dateTimeTag =  DateTime.Now.ToString("yyyyMMddHHmmss");
 
@@ -36,11 +37,26 @@ namespace rpmBIMTools
         {
             t = new Transaction(doc, "Create Section Box");
             t.Start();
-            ViewFamilyType vft = rpmBIMUtils.GetViewFamilyType(doc, ViewFamily.ThreeDimensional);
-            preview = View3D.CreateIsometric(doc, vft.Id);
+            preview = View3D.CreateIsometric(doc, doc.GetViewFamilyType(ViewFamily.ThreeDimensional).Id);
+            // Collect all 3d views
+            all3dViews = new FilteredElementCollector(doc)
+                .OfCategory(BuiltInCategory.OST_Views)
+                .OfClass(typeof(View3D))
+                .Cast<View3D>()
+                .ToList();
+            for (int i = 1; i <= 999; i++)
+            {
+                if (!all3dViews.Any(v => v.ViewName.StartsWith("Section Box " + i.ToString("000"))))
+                {
+                    viewName.Text = "Section Box " + i.ToString("000");
+                    break;
+                }
+            }
             preview.ViewName = "Section Box " + dateTimeTag;
             preview.DetailLevel = ViewDetailLevel.Fine;
-            preview.DisplayStyle = DisplayStyle.Realistic;
+            if (preview.LookupParameter("Sub-Discipline") != null)
+                preview.LookupParameter("Sub-Discipline").Set("### - Section Boxes");
+            displayStyle.SelectedIndex = 1;
             // Calculate sectionBoundingBox
             XYZ min = new XYZ( selectedElements.Min(sb => sb.get_BoundingBox(null).Min.X),
                 selectedElements.Min(sb => sb.get_BoundingBox(null).Min.Y),
@@ -96,20 +112,21 @@ namespace rpmBIMTools
 
         private void createButton_Click(object sender, EventArgs e)
         {
+            string username = string.Empty;
+            if (doc.IsWorkshared)
+            {
+                username = " - " + uiApp.Application.Username;
+            }
             // Do checks before making section box
-            bool viewExists = new FilteredElementCollector(doc)
-                .OfCategory(BuiltInCategory.OST_Views)
-                .OfClass(typeof(View3D))
-                .Cast<View3D>()
-                .Any(v => v.ViewName == viewName.Text);
+            bool viewExists = all3dViews.Any(v => v.ViewName == viewName.Text + username);
             if (viewExists)
             {
-                TaskDialog.Show("Create Section Box", "3D View with the name '" + viewName + "' already exists.");
+                TaskDialog.Show("Create Section Box", "3D View with the name '" + viewName.Text + "' already exists.");
                 return;
             }
             doc.Regenerate();
             View3D SectionBoxView = doc.GetElement(preview.Duplicate(ViewDuplicateOption.Duplicate)) as View3D;
-            SectionBoxView.ViewName = viewName.Text;
+            SectionBoxView.ViewName = viewName.Text + username;
             doc.Delete(preview.Id);
             t.Commit();
             Close();
@@ -124,6 +141,22 @@ namespace rpmBIMTools
         private void viewName_TextChanged(object sender, EventArgs e)
         {
             createButton.Enabled = !string.IsNullOrWhiteSpace(viewName.Text);
+        }
+
+        private void updatePreview(object sender, EventArgs e)
+        {
+            if (preview != null)
+            {
+                preview.DisplayStyle =
+                    displayStyle.Text == "Wireframe" ? DisplayStyle.Wireframe :
+                    displayStyle.Text == "Hidden Line" ? DisplayStyle.HLR :
+                    displayStyle.Text == "Shaded" ? DisplayStyle.Shading :
+                    displayStyle.Text == "Consistent Colors" ? DisplayStyle.FlatColors :
+                    DisplayStyle.Realistic;
+                preview.SetSectionBox(getBoundingBoxFromElements(sectionBoxOffset.Value + 1));
+                preview.SetSectionBox(getBoundingBoxFromElements(sectionBoxOffset.Value));
+                doc.Regenerate();
+            }
         }
     }
 }

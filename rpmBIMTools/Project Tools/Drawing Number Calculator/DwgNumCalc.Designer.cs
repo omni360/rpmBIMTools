@@ -51,6 +51,7 @@ namespace rpmBIMTools
             this.CopyToNewSheet = new System.Windows.Forms.Button();
             this.ZoneNum = new System.Windows.Forms.TextBox();
             this.SheetSize = new System.Windows.Forms.ComboBox();
+            this.arrayButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LevelNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SheetNum)).BeginInit();
             this.SuspendLayout();
@@ -86,7 +87,7 @@ namespace rpmBIMTools
             this.ProjectNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProjectNumber.Location = new System.Drawing.Point(13, 30);
             this.ProjectNumber.Margin = new System.Windows.Forms.Padding(4);
-            this.ProjectNumber.MaxLength = 7;
+            this.ProjectNumber.MaxLength = 8;
             this.ProjectNumber.Name = "ProjectNumber";
             this.ProjectNumber.Size = new System.Drawing.Size(87, 23);
             this.ProjectNumber.TabIndex = 1;
@@ -117,7 +118,7 @@ namespace rpmBIMTools
             // 
             // DwgNum
             // 
-            this.DwgNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
+            this.DwgNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 17.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DwgNum.Location = new System.Drawing.Point(13, 71);
             this.DwgNum.Name = "DwgNum";
             this.DwgNum.Size = new System.Drawing.Size(395, 31);
@@ -348,6 +349,20 @@ namespace rpmBIMTools
             this.SheetSize.Size = new System.Drawing.Size(40, 24);
             this.SheetSize.TabIndex = 13;
             // 
+            // arrayButton
+            // 
+            this.arrayButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.arrayButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.arrayButton.Location = new System.Drawing.Point(827, 66);
+            this.arrayButton.Margin = new System.Windows.Forms.Padding(4);
+            this.arrayButton.Name = "arrayButton";
+            this.arrayButton.Size = new System.Drawing.Size(69, 39);
+            this.arrayButton.TabIndex = 14;
+            this.arrayButton.Text = "OK";
+            this.arrayButton.UseVisualStyleBackColor = false;
+            this.arrayButton.Visible = false;
+            this.arrayButton.Click += new System.EventHandler(this.arrayButton_Click);
+            // 
             // DwgNumCalc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -357,6 +372,7 @@ namespace rpmBIMTools
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(984, 121);
+            this.Controls.Add(this.arrayButton);
             this.Controls.Add(this.SheetSize);
             this.Controls.Add(this.ZoneNum);
             this.Controls.Add(this.CopyToNewSheet);
@@ -421,6 +437,6 @@ namespace rpmBIMTools
         private Button CopyToNewSheet;
         private TextBox ZoneNum;
         private ComboBox SheetSize;
-
+        private Button arrayButton;
     }
 }

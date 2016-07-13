@@ -3,24 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Windows.Media;
     using System.Windows.Forms;
     using System.Windows.Media.Imaging;
-    using System.Diagnostics;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using System.Reflection;
-    using System.IO;
-    using System.IO.Packaging;
 
-    using Autodesk.Revit;
     using Autodesk.Revit.DB;
-    using Autodesk.Revit.DB.Architecture;
     using Autodesk.Revit.UI;
     using Autodesk.Revit.UI.Selection;
-    using Autodesk.Revit.ApplicationServices;
     using Autodesk.Revit.Attributes;
-    using Autodesk.Revit.Exceptions;
 
     public class Load : IExternalApplication
     {
@@ -30,12 +19,15 @@
 
         public Result OnStartup(UIControlledApplication application)
         {
+            Autodesk.Windows.RibbonTab modifyTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab("Modify");
+            modifyTab.PropertyChanged += AddSpecialCharacterTab;
+
             // Collect Assembly Information for use
-            string rpmBIM_Tools_Path = (new System.Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase)).AbsolutePath;
+            string rpmBIM_Tools_Path = (new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase)).AbsolutePath;
             string mainTabName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
 
             // Creating Ribbon Tab
-            application.CreateRibbonTab(mainTabName);       
+            application.CreateRibbonTab(mainTabName);
 
             // Project Panel
             RibbonPanel ribbonTabProject = application.CreateRibbonPanel(mainTabName, "Project Tools");
@@ -54,14 +46,18 @@
             buttonModelExport.LongDescription = "Purges everything but the model and exports into a compressed file";
 
             // Scope Box Panel
-            RibbonPanel ribbonTabScopeBox = application.CreateRibbonPanel(mainTabName, "Visual Tools");
+            RibbonPanel ribbonTabSectionBox = application.CreateRibbonPanel(mainTabName, "Section Box");
 
-            PushButton buttonCreateSectionBox = ribbonTabScopeBox.AddItem(new PushButtonData("createSetionBox", "Create\nSection Box", rpmBIM_Tools_Path, "rpmBIMTools.createSectionBox")) as PushButton;
+            PushButton buttonCreateSectionBox = ribbonTabSectionBox.AddItem(new PushButtonData("createSetionBox", "Create\nSection Box", rpmBIM_Tools_Path, "rpmBIMTools.createSectionBox")) as PushButton;
             buttonCreateSectionBox.LargeImage = EmbededBitmap(Properties.Resources.CreateSectionBox32);
             buttonCreateSectionBox.LongDescription = "TBC";
-            PushButton buttonToggleSectionBox = ribbonTabScopeBox.AddItem(new PushButtonData("toogleSectionBox", "Toggle\nSection Box", rpmBIM_Tools_Path, "rpmBIMTools.toggleSectionBox")) as PushButton;
+            PushButton buttonToggleSectionBox = ribbonTabSectionBox.AddItem(new PushButtonData("toogleSectionBox", "Toggle\nSection Box", rpmBIM_Tools_Path, "rpmBIMTools.toggleSectionBox")) as PushButton;
             buttonToggleSectionBox.LargeImage = EmbededBitmap(Properties.Resources.ToggleSectionBox32);
             buttonToggleSectionBox.LongDescription = "TBC";
+
+            // Scope Box Panel
+            RibbonPanel ribbonTabScopeBox = application.CreateRibbonPanel(mainTabName, "Scope Box");
+
             PushButton buttonPurgeScopeBox = ribbonTabScopeBox.AddItem(new PushButtonData("purgeScopeBox", "Purge\nScope Box", rpmBIM_Tools_Path, "rpmBIMTools.purgeScopeBox")) as PushButton;
             buttonPurgeScopeBox.LargeImage = EmbededBitmap(Properties.Resources.PurgeScopeBox32);
             buttonPurgeScopeBox.LongDescription = "TBC";
@@ -69,9 +65,9 @@
             // Schedule Panel
             RibbonPanel ribbonTabSchedule = application.CreateRibbonPanel(mainTabName, "Schedule");
 
-            PushButton buttonImportExportSchedules = ribbonTabSchedule.AddItem(new PushButtonData("importExportSchedules", "Import / Export\nSchedules", rpmBIM_Tools_Path, "rpmBIMTools.TBC")) as PushButton;
-            buttonImportExportSchedules.LargeImage = EmbededBitmap(Properties.Resources.ImportExportSchedule32);
-            buttonImportExportSchedules.LongDescription = "TBC";
+            PushButton buttonExportImportSchedules = ribbonTabSchedule.AddItem(new PushButtonData("exportImportSchedules", "Export / Import\nSchedules", rpmBIM_Tools_Path, "rpmBIMTools.exportImportSchedules")) as PushButton;
+            buttonExportImportSchedules.LargeImage = EmbededBitmap(Properties.Resources.ExportImportSchedule32);
+            buttonExportImportSchedules.LongDescription = "TBC";
 
             // Schematic Panel
             RibbonPanel ribbonTabSchematic = application.CreateRibbonPanel(mainTabName, "Schematic");
@@ -91,10 +87,13 @@
 
             // Select & Edit Panel
             RibbonPanel ribbonTabSelectEdit = application.CreateRibbonPanel(mainTabName, "Select / Edit");
-
+            
             PushButton buttonQuickSelect = ribbonTabSelectEdit.AddItem(new PushButtonData("QuickSelect", "Quick\nSelect", rpmBIM_Tools_Path, "rpmBIMTools.quickSelect")) as PushButton;
             buttonQuickSelect.LargeImage = EmbededBitmap(Properties.Resources.QuickSelect32);
             buttonQuickSelect.LongDescription = "Advanced data selection utililty";
+            PushButton buttonFamilyLibrary = ribbonTabSelectEdit.AddItem(new PushButtonData("FamilyLibrary", "Family\nLibrary", rpmBIM_Tools_Path, "rpmBIMTools.familyLibrary")) as PushButton;
+            buttonFamilyLibrary.LargeImage = EmbededBitmap(Properties.Resources.FamilyLibrary32);
+            buttonFamilyLibrary.LongDescription = "Utility for loading NGB families";
             PushButton buttonoFamilyNameEditor = ribbonTabSelectEdit.AddItem(new PushButtonData("FamilyNameEditor", "Family Name\nEditor", rpmBIM_Tools_Path, "rpmBIMTools.familyNameEditor")) as PushButton;
             buttonoFamilyNameEditor.LargeImage = EmbededBitmap(Properties.Resources.FamilyNameEditor32);
             buttonoFamilyNameEditor.LongDescription = "Select multiple elements with ease";
@@ -108,6 +107,53 @@
             PushButton buttonBulkFileUpdater = ribbonTabAdmin.AddItem(new PushButtonData("builkFileUpdater", "Bulk File\nUpdater", rpmBIM_Tools_Path, "rpmBIMTools.TBC")) as PushButton;
             buttonBulkFileUpdater.LargeImage = EmbededBitmap(Properties.Resources.BulkFileUpdater32);
             buttonBulkFileUpdater.LongDescription = "TBC";
+
+            // Special Character Panel (Hidden by default)
+            RibbonPanel ribbonTabCharacter = application.CreateRibbonPanel(mainTabName, "Characters");
+            ribbonTabCharacter.AddStackedItems(
+                new PushButtonData("°", "°", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Degree"),
+                new PushButtonData("Ø", "Ø", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Radius"),
+                new PushButtonData("Ω", "Ω", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Ohm")
+                );
+            ribbonTabCharacter.AddStackedItems(
+                new PushButtonData("№", "№", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Numero"),
+                new PushButtonData("²", "²", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Superscript2"),
+                new PushButtonData("³", "³", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Superscript3")
+                );
+            ribbonTabCharacter.AddStackedItems(
+                new PushButtonData("¼", "¼", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.FractionOneFour"),
+                new PushButtonData("½", "½", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.FractionOneTwo"),
+                new PushButtonData("¾", "¾", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.FractionThreeFour")
+                );
+            ribbonTabCharacter.AddStackedItems(
+                new PushButtonData("∇", "∇", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Nabia"),
+                new PushButtonData("±", "±", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.PlusMinus"),
+                new PushButtonData("√", "√", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Squareroot")
+                );
+            ribbonTabCharacter.AddStackedItems(
+                new PushButtonData("∞", "∞", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Infinity"),
+                new PushButtonData("∠", "∠", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Angle"),
+                new PushButtonData("π", "π", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Pie")
+                );
+            ribbonTabCharacter.AddStackedItems(
+                new PushButtonData("≠", "≠", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.NotEqual"),
+                new PushButtonData("≤", "≤", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.LessThan"),
+                new PushButtonData("≥", "≥", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.GreaterThan")
+                );
+            ribbonTabCharacter.AddStackedItems(
+                new PushButtonData("®", "®", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Register"),
+                new PushButtonData("♀", "♀", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Female"),
+                new PushButtonData("♂", "♂", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Male")
+                );
+            ribbonTabCharacter.AddStackedItems(
+                new PushButtonData("€", "€", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Euro"),
+                new PushButtonData("™", "™", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Trademark"),
+                new PushButtonData("©", "©", rpmBIM_Tools_Path, "rpmBIMTools.InsertSpecialCharacter.Copyright")
+                );
+            ribbonTabCharacter.Visible = false;
+
+            Autodesk.Windows.RibbonPanel modifyCharacterPanel = Autodesk.Windows.ComponentManager.Ribbon.FindTab(mainTabName).Panels.Last();
+            modifyCharacterPanel.Source.Id = "characterPanel";
 
             return Result.Succeeded;
         }
@@ -125,6 +171,35 @@
             destination.Freeze();
             return destination;
         }
+
+        public void AddSpecialCharacterTab(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Title")
+            {
+                string mainTabName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+                Autodesk.Windows.RibbonTab ModifyTab = sender as Autodesk.Windows.RibbonTab;
+                Autodesk.Windows.RibbonTab rpmBIMToolsTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(mainTabName);
+                Autodesk.Windows.RibbonPanel CharacterPanel = Autodesk.Windows.ComponentManager.Ribbon.FindPanel("characterPanel", false);
+                if (ModifyTab.Title == "Modify | Text Notes")
+                {
+                    if (CharacterPanel.Tab.Title == mainTabName)
+                    {
+                        CharacterPanel.IsVisible = true;
+                        ModifyTab.Panels.Add(CharacterPanel);
+                        rpmBIMToolsTab.Panels.Remove(CharacterPanel);
+                    }
+                }
+                else
+                {
+                    if (CharacterPanel.Tab.Title == "Modify")
+                    {
+                        CharacterPanel.IsVisible = false;
+                        rpmBIMToolsTab.Panels.Add(CharacterPanel);
+                        ModifyTab.Panels.Remove(CharacterPanel);
+                    }
+                }
+            }
+        }
     }
     
     /////////////////////////////////
@@ -137,6 +212,11 @@
         public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
         {
             TaskDialog.Show("Feature Missing", "The selected feature is still under development");
+            //Dictionary<string, string> drawingSheetList = DwgNumCalc.GetArrays(commandData.Application.ActiveUIDocument.Document, 5);
+            //foreach (KeyValuePair<string, string> drawingSheet in drawingSheetList)
+            //{
+            //    TaskDialog.Show("Test", drawingSheet.Key + " - " + drawingSheet.Value);
+            //}
             return Result.Succeeded;
         }
     }
@@ -172,10 +252,32 @@
 
     partial class generateGUID : IExternalCommand
     {
-        public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             generateDialog form = new generateDialog();
             form.ShowDialog();
+            return Result.Succeeded;
+        }
+    }
+
+    [Transaction(TransactionMode.Manual)]
+
+    partial class exportImportSchedules : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            rpmBIMTools.Load.uiApp = commandData.Application;
+            rpmBIMTools.Load.liveDoc = commandData.Application.ActiveUIDocument.Document;
+
+            if (rpmBIMTools.Load.liveDoc.IsFamilyDocument)
+            {
+                TaskDialog.Show("Export / Import Schedules", "Cannot be used in family editor");
+            }
+            else
+            {
+                exportImportSchedules form = new exportImportSchedules();
+                form.ShowDialog();
+            }
             return Result.Succeeded;
         }
     }
@@ -184,7 +286,7 @@
 
     public partial class createSectionBox : IExternalCommand
     {
-        public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
 
             rpmBIMTools.Load.uiApp = commandData.Application;
@@ -197,19 +299,20 @@
             else
             {
                 createSectionBox form = new createSectionBox();
-                try
+                form.selectedElements = rpmBIMTools.Load.uiApp.ActiveUIDocument.Selection.GetElementIds()
+                .Select(eid => rpmBIMTools.Load.liveDoc.GetElement(eid))
+                .Where(e => e.get_BoundingBox(null) != null)
+                .ToList();
+                if (form.selectedElements.Count() != 0)
                 {
-                    form.selectedElements = rpmBIMTools.Load.uiApp.ActiveUIDocument.Selection.PickObjects(ObjectType.Element, "Select elements to place in section box.")
-                    .Select(r => rpmBIMTools.Load.liveDoc.GetElement(r.ElementId))
-                    .Where(e => e.get_BoundingBox(null) != null)
-                    .ToList();
-                    if (form.selectedElements.Count() != 0)
-                    {
-                        form.ShowDialog();
-                    }
+                    rpmBIMTools.Load.uiApp.ActiveUIDocument.Selection.SetElementIds(new List<ElementId>());
+                    form.ShowDialog();
                 }
-                catch (Autodesk.Revit.Exceptions.InvalidOperationException) { }
-                catch (Autodesk.Revit.Exceptions.OperationCanceledException) { }
+                else
+                {
+                    TaskDialog.Show("Create Section Box", "No model elements were selected.");
+                    return Result.Failed;
+                }
             }
             return Result.Succeeded;
         }
@@ -219,7 +322,7 @@
 
     public partial class purgeScopeBox : IExternalCommand
     {
-        public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             rpmBIMTools.Load.uiApp = commandData.Application;
             rpmBIMTools.Load.liveDoc = commandData.Application.ActiveUIDocument.Document;
@@ -240,7 +343,7 @@
 
     public partial class createLVSchematic : IExternalCommand
     {
-        public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             rpmBIMTools.Load.uiApp = commandData.Application;
             rpmBIMTools.Load.liveDoc = commandData.Application.ActiveUIDocument.Document;
@@ -261,7 +364,7 @@
 
     public partial class exportLVSchematic : IExternalCommand
     {
-        public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             rpmBIMTools.Load.uiApp = commandData.Application;
             rpmBIMTools.Load.liveDoc = commandData.Application.ActiveUIDocument.Document;
@@ -299,7 +402,7 @@
 
     public partial class exportModel : IExternalCommand
     {
-        public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             rpmBIMTools.Load.uiApp = commandData.Application;
             rpmBIMTools.Load.liveDoc = commandData.Application.ActiveUIDocument.Document;
@@ -323,7 +426,7 @@
 
     public partial class familyNameEditor : IExternalCommand
     {
-        public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             rpmBIMTools.Load.uiApp = commandData.Application;
             rpmBIMTools.Load.liveDoc = commandData.Application.ActiveUIDocument.Document;
@@ -347,7 +450,7 @@
 
     public partial class quickSelect : IExternalCommand
     {
-        public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             rpmBIMTools.Load.uiApp = commandData.Application;
             rpmBIMTools.Load.liveDoc = commandData.Application.ActiveUIDocument.Document;

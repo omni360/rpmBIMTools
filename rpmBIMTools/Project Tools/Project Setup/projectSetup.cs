@@ -264,10 +264,7 @@ namespace rpmBIMTools
                 t.Start();
                 XYZ min = linkA.get_BoundingBox(doc.ActiveView).Min;
                 XYZ max = linkA.get_BoundingBox(doc.ActiveView).Max;
-                ViewFamilyType vftElevation = new FilteredElementCollector(doc)
-                                    .OfClass(typeof(ViewFamilyType))
-                                    .Cast<ViewFamilyType>()
-                                    .FirstOrDefault(q => q.ViewFamily == ViewFamily.Elevation);
+                ViewFamilyType vftElevation = doc.GetViewFamilyType(ViewFamily.Elevation);
                 // North Elevation
                 ElevationMarker eM = ElevationMarker.CreateElevationMarker(doc, vftElevation.Id, new XYZ(min.X + (max.X - min.X) / 2, max.Y + 5, min.Z + (max.Z - min.Z) / 2), 96);
                 eM.Pinned = true;
@@ -411,10 +408,7 @@ namespace rpmBIMTools
                                 if ((doc.GetElement(oldLevels.First()) as Level).GetTypeId() != linkLevelType)
                                 doc.Delete(linkLevelType);
                             }
-                            ViewFamilyType vftFloorPlan = new FilteredElementCollector(doc)
-                                .OfClass(typeof(ViewFamilyType))
-                                .Cast<ViewFamilyType>()
-                                .FirstOrDefault(q => q.ViewFamily == ViewFamily.FloorPlan);
+                            ViewFamilyType vftFloorPlan = doc.GetViewFamilyType(ViewFamily.FloorPlan);
                             foreach(ElementId levelId in newLevelIds) {
                                 newPlan = ViewPlan.Create(doc, vftFloorPlan.Id, levelId);
                                 newPlans.Add(newPlan);
@@ -536,10 +530,8 @@ namespace rpmBIMTools
                     {
                         ViewSheet sheet = ViewSheet.Create(doc, titleBlockA0.Id);
                         sheet.ViewName = viewPlan.ViewName;
-                        if (sheet.LookupParameter("Sub-Discipline") != null)
-                            sheet.LookupParameter("Sub-Discipline").Set("MASTER");
-                        if (sheet.LookupParameter("STATUS") != null)
-                            sheet.LookupParameter("STATUS").Set("S3 - For Review & Comment");
+                        sheet.SetStatus("S3 - For Review & Comment");
+                        sheet.SetSubDiscipline("MASTER");
                         if (sheet.get_Parameter(BuiltInParameter.SHEET_ISSUE_DATE) != null)
                             sheet.get_Parameter(BuiltInParameter.SHEET_ISSUE_DATE).Set(DateTime.Today.ToString("dd/MM/yy"));
                         if (viewPlan.CanViewBeDuplicated(ViewDuplicateOption.AsDependent))

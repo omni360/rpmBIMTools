@@ -167,7 +167,22 @@ namespace rpmBIMTools
                 }
             }
             selectionCategory.DisplayMember = "name";
-            if (selectionCategory.Items.Count > 0) selectionCategory_SelectedIndexChanged(null, null);
+            if (selectionCategory.Items.Count > 0)
+            {
+                selectionCategory.Enabled = true;
+                selectionOperator.Enabled = true;
+                selectionValue.Enabled = true;
+                selectionCategory_SelectedIndexChanged(null, null);
+            }
+            else
+            {
+                selectionCategory.Enabled = false;
+                selectionType.Text = "None";
+                selectionOperator.Enabled = false;
+                selectionValue.Items.Clear();
+                selectionValue.Enabled = false;
+                selectButton.Enabled = false;
+            }
         }
 
         private void selectionCategory_SelectedIndexChanged(object sender, EventArgs e)

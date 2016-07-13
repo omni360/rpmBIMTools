@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(familyNameEditor));
-            this.familyFormatSwitch = new System.Windows.Forms.RadioButton();
             this.familyFormatSwitch2 = new System.Windows.Forms.RadioButton();
+            this.familyFormatSwitch3 = new System.Windows.Forms.RadioButton();
             this.familySelectionPrevious = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.familySelection = new System.Windows.Forms.DataGridView();
@@ -42,6 +42,8 @@
             this.familyCounter = new System.Windows.Forms.Label();
             this.familyCompliant = new System.Windows.Forms.PictureBox();
             this.familyInfoGroup = new System.Windows.Forms.GroupBox();
+            this.familyType = new System.Windows.Forms.TextBox();
+            this.familyFormatBS8541 = new System.Windows.Forms.RadioButton();
             this.familyContinue = new System.Windows.Forms.CheckBox();
             this.familyReset = new System.Windows.Forms.Button();
             this.familyApply = new System.Windows.Forms.Button();
@@ -49,15 +51,15 @@
             this.familyPresentation = new System.Windows.Forms.TextBox();
             this.familyCustom = new System.Windows.Forms.TextBox();
             this.familyRole = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.fieldLabel6 = new System.Windows.Forms.Label();
             this.familyManufacturer = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.fieldLabel5 = new System.Windows.Forms.Label();
             this.familyModel = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.fieldLabel4 = new System.Windows.Forms.Label();
             this.familyDescription = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.fieldLabel3 = new System.Windows.Forms.Label();
+            this.fieldLabel1 = new System.Windows.Forms.Label();
+            this.fieldLabel2 = new System.Windows.Forms.Label();
             this.familyInfo = new System.Windows.Forms.Label();
             this.familyName = new System.Windows.Forms.Label();
             this.familyIcon = new System.Windows.Forms.PictureBox();
@@ -72,29 +74,27 @@
             ((System.ComponentModel.ISupportInitialize)(this.familyIcon)).BeginInit();
             this.SuspendLayout();
             // 
-            // familyFormatSwitch
-            // 
-            this.familyFormatSwitch.AutoSize = true;
-            this.familyFormatSwitch.Checked = true;
-            this.familyFormatSwitch.Location = new System.Drawing.Point(31, 30);
-            this.familyFormatSwitch.Name = "familyFormatSwitch";
-            this.familyFormatSwitch.Size = new System.Drawing.Size(145, 17);
-            this.familyFormatSwitch.TabIndex = 0;
-            this.familyFormatSwitch.TabStop = true;
-            this.familyFormatSwitch.Text = "BS 1192:2007 + A1:2005";
-            this.familyFormatSwitch.UseVisualStyleBackColor = true;
-            this.familyFormatSwitch.CheckedChanged += new System.EventHandler(this.familyFormatSwitch_CheckedChanged);
-            // 
             // familyFormatSwitch2
             // 
             this.familyFormatSwitch2.AutoSize = true;
-            this.familyFormatSwitch2.Location = new System.Drawing.Point(31, 244);
+            this.familyFormatSwitch2.Location = new System.Drawing.Point(149, 30);
             this.familyFormatSwitch2.Name = "familyFormatSwitch2";
-            this.familyFormatSwitch2.Size = new System.Drawing.Size(60, 17);
+            this.familyFormatSwitch2.Size = new System.Drawing.Size(145, 17);
             this.familyFormatSwitch2.TabIndex = 0;
-            this.familyFormatSwitch2.Text = "Custom";
+            this.familyFormatSwitch2.Text = "BS 1192:2007 + A2:2016";
             this.familyFormatSwitch2.UseVisualStyleBackColor = true;
-            this.familyFormatSwitch2.CheckedChanged += new System.EventHandler(this.familyFormatSwitch2_CheckedChanged);
+            this.familyFormatSwitch2.CheckedChanged += new System.EventHandler(this.familyFormatSwitch_CheckedChanged);
+            // 
+            // familyFormatSwitch3
+            // 
+            this.familyFormatSwitch3.AutoSize = true;
+            this.familyFormatSwitch3.Location = new System.Drawing.Point(31, 244);
+            this.familyFormatSwitch3.Name = "familyFormatSwitch3";
+            this.familyFormatSwitch3.Size = new System.Drawing.Size(60, 17);
+            this.familyFormatSwitch3.TabIndex = 0;
+            this.familyFormatSwitch3.Text = "Custom";
+            this.familyFormatSwitch3.UseVisualStyleBackColor = true;
+            this.familyFormatSwitch3.CheckedChanged += new System.EventHandler(this.familyFormatSwitch2_CheckedChanged);
             // 
             // familySelectionPrevious
             // 
@@ -246,30 +246,55 @@
             // 
             this.familyInfoGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.familyInfoGroup.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.familyInfoGroup.Controls.Add(this.familyType);
+            this.familyInfoGroup.Controls.Add(this.familyFormatBS8541);
             this.familyInfoGroup.Controls.Add(this.familyContinue);
             this.familyInfoGroup.Controls.Add(this.familyReset);
             this.familyInfoGroup.Controls.Add(this.familyApply);
-            this.familyInfoGroup.Controls.Add(this.familyFormatSwitch);
             this.familyInfoGroup.Controls.Add(this.familyFormatSwitch2);
+            this.familyInfoGroup.Controls.Add(this.familyFormatSwitch3);
             this.familyInfoGroup.Controls.Add(this.familyUniclass2);
             this.familyInfoGroup.Controls.Add(this.familyPresentation);
             this.familyInfoGroup.Controls.Add(this.familyCustom);
             this.familyInfoGroup.Controls.Add(this.familyRole);
-            this.familyInfoGroup.Controls.Add(this.label9);
+            this.familyInfoGroup.Controls.Add(this.fieldLabel6);
             this.familyInfoGroup.Controls.Add(this.familyManufacturer);
-            this.familyInfoGroup.Controls.Add(this.label8);
+            this.familyInfoGroup.Controls.Add(this.fieldLabel5);
             this.familyInfoGroup.Controls.Add(this.familyModel);
-            this.familyInfoGroup.Controls.Add(this.label7);
+            this.familyInfoGroup.Controls.Add(this.fieldLabel4);
             this.familyInfoGroup.Controls.Add(this.familyDescription);
-            this.familyInfoGroup.Controls.Add(this.label6);
-            this.familyInfoGroup.Controls.Add(this.label4);
-            this.familyInfoGroup.Controls.Add(this.label5);
+            this.familyInfoGroup.Controls.Add(this.fieldLabel3);
+            this.familyInfoGroup.Controls.Add(this.fieldLabel1);
+            this.familyInfoGroup.Controls.Add(this.fieldLabel2);
             this.familyInfoGroup.Location = new System.Drawing.Point(25, 92);
             this.familyInfoGroup.Name = "familyInfoGroup";
             this.familyInfoGroup.Size = new System.Drawing.Size(476, 314);
             this.familyInfoGroup.TabIndex = 3;
             this.familyInfoGroup.TabStop = false;
             this.familyInfoGroup.Text = "Family Rename Format:";
+            // 
+            // familyType
+            // 
+            this.familyType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.familyType.Location = new System.Drawing.Point(117, 94);
+            this.familyType.Name = "familyType";
+            this.familyType.Size = new System.Drawing.Size(340, 20);
+            this.familyType.TabIndex = 17;
+            this.familyType.TextChanged += new System.EventHandler(this.familyCustomChange);
+            // 
+            // familyFormatBS8541
+            // 
+            this.familyFormatBS8541.AutoSize = true;
+            this.familyFormatBS8541.Checked = true;
+            this.familyFormatBS8541.Location = new System.Drawing.Point(31, 30);
+            this.familyFormatBS8541.Name = "familyFormatBS8541";
+            this.familyFormatBS8541.Size = new System.Drawing.Size(102, 17);
+            this.familyFormatBS8541.TabIndex = 16;
+            this.familyFormatBS8541.TabStop = true;
+            this.familyFormatBS8541.Text = "BS 8541-1:2012";
+            this.familyFormatBS8541.UseVisualStyleBackColor = true;
+            this.familyFormatBS8541.CheckedChanged += new System.EventHandler(this.familyFormatBS8541_CheckedChanged);
             // 
             // familyContinue
             // 
@@ -319,6 +344,7 @@
             this.familyUniclass2.Name = "familyUniclass2";
             this.familyUniclass2.Size = new System.Drawing.Size(340, 21);
             this.familyUniclass2.TabIndex = 2;
+            this.familyUniclass2.Visible = false;
             this.familyUniclass2.SelectedIndexChanged += new System.EventHandler(this.familyCustomChange);
             this.familyUniclass2.TextUpdate += new System.EventHandler(this.familyUniclass2_TextUpdate);
             // 
@@ -326,11 +352,11 @@
             // 
             this.familyPresentation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.familyPresentation.Enabled = false;
             this.familyPresentation.Location = new System.Drawing.Point(117, 121);
             this.familyPresentation.Name = "familyPresentation";
             this.familyPresentation.Size = new System.Drawing.Size(340, 20);
             this.familyPresentation.TabIndex = 3;
+            this.familyPresentation.TextChanged += new System.EventHandler(this.familyCustomChange);
             // 
             // familyCustom
             // 
@@ -351,15 +377,17 @@
             this.familyRole.Name = "familyRole";
             this.familyRole.Size = new System.Drawing.Size(340, 20);
             this.familyRole.TabIndex = 1;
+            this.familyRole.TextChanged += new System.EventHandler(this.familyCustomChange);
             // 
-            // label9
+            // fieldLabel6
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(28, 202);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(63, 13);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "Description:";
+            this.fieldLabel6.AutoSize = true;
+            this.fieldLabel6.Location = new System.Drawing.Point(28, 202);
+            this.fieldLabel6.Name = "fieldLabel6";
+            this.fieldLabel6.Size = new System.Drawing.Size(63, 13);
+            this.fieldLabel6.TabIndex = 15;
+            this.fieldLabel6.Text = "Description:";
+            this.fieldLabel6.Visible = false;
             // 
             // familyManufacturer
             // 
@@ -369,16 +397,18 @@
             this.familyManufacturer.Name = "familyManufacturer";
             this.familyManufacturer.Size = new System.Drawing.Size(340, 20);
             this.familyManufacturer.TabIndex = 4;
+            this.familyManufacturer.Visible = false;
             this.familyManufacturer.TextChanged += new System.EventHandler(this.familyCustomChange);
             // 
-            // label8
+            // fieldLabel5
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(28, 176);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(39, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Model:";
+            this.fieldLabel5.AutoSize = true;
+            this.fieldLabel5.Location = new System.Drawing.Point(28, 176);
+            this.fieldLabel5.Name = "fieldLabel5";
+            this.fieldLabel5.Size = new System.Drawing.Size(39, 13);
+            this.fieldLabel5.TabIndex = 14;
+            this.fieldLabel5.Text = "Model:";
+            this.fieldLabel5.Visible = false;
             // 
             // familyModel
             // 
@@ -388,16 +418,18 @@
             this.familyModel.Name = "familyModel";
             this.familyModel.Size = new System.Drawing.Size(340, 20);
             this.familyModel.TabIndex = 5;
+            this.familyModel.Visible = false;
             this.familyModel.TextChanged += new System.EventHandler(this.familyCustomChange);
             // 
-            // label7
+            // fieldLabel4
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(28, 150);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(73, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Manufacturer:";
+            this.fieldLabel4.AutoSize = true;
+            this.fieldLabel4.Location = new System.Drawing.Point(28, 150);
+            this.fieldLabel4.Name = "fieldLabel4";
+            this.fieldLabel4.Size = new System.Drawing.Size(73, 13);
+            this.fieldLabel4.TabIndex = 13;
+            this.fieldLabel4.Text = "Manufacturer:";
+            this.fieldLabel4.Visible = false;
             // 
             // familyDescription
             // 
@@ -407,34 +439,35 @@
             this.familyDescription.Name = "familyDescription";
             this.familyDescription.Size = new System.Drawing.Size(340, 20);
             this.familyDescription.TabIndex = 6;
+            this.familyDescription.Visible = false;
             this.familyDescription.TextChanged += new System.EventHandler(this.familyCustomChange);
             // 
-            // label6
+            // fieldLabel3
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(28, 124);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(69, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Presentation:";
+            this.fieldLabel3.AutoSize = true;
+            this.fieldLabel3.Location = new System.Drawing.Point(28, 124);
+            this.fieldLabel3.Name = "fieldLabel3";
+            this.fieldLabel3.Size = new System.Drawing.Size(56, 13);
+            this.fieldLabel3.TabIndex = 12;
+            this.fieldLabel3.Text = "Sub-Type:";
             // 
-            // label4
+            // fieldLabel1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(28, 71);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Role:";
+            this.fieldLabel1.AutoSize = true;
+            this.fieldLabel1.Location = new System.Drawing.Point(28, 71);
+            this.fieldLabel1.Name = "fieldLabel1";
+            this.fieldLabel1.Size = new System.Drawing.Size(44, 13);
+            this.fieldLabel1.TabIndex = 10;
+            this.fieldLabel1.Text = "Source:";
             // 
-            // label5
+            // fieldLabel2
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(28, 97);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Uniclass2:";
+            this.fieldLabel2.AutoSize = true;
+            this.fieldLabel2.Location = new System.Drawing.Point(28, 97);
+            this.fieldLabel2.Name = "fieldLabel2";
+            this.fieldLabel2.Size = new System.Drawing.Size(31, 13);
+            this.fieldLabel2.TabIndex = 11;
+            this.fieldLabel2.Text = "Type";
             // 
             // familyInfo
             // 
@@ -509,8 +542,8 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton familyFormatSwitch;
         private System.Windows.Forms.RadioButton familyFormatSwitch2;
+        private System.Windows.Forms.RadioButton familyFormatSwitch3;
         private System.Windows.Forms.Button familySelectionPrevious;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ComboBox familyUniclass2;
@@ -519,12 +552,12 @@
         private System.Windows.Forms.Button closeEditor;
         private System.Windows.Forms.Label familiesLabel;
         private System.Windows.Forms.Label familyCounter;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label fieldLabel6;
+        private System.Windows.Forms.Label fieldLabel5;
+        private System.Windows.Forms.Label fieldLabel4;
+        private System.Windows.Forms.Label fieldLabel3;
+        private System.Windows.Forms.Label fieldLabel2;
+        private System.Windows.Forms.Label fieldLabel1;
         private System.Windows.Forms.TextBox familyDescription;
         private System.Windows.Forms.TextBox familyModel;
         private System.Windows.Forms.TextBox familyManufacturer;
@@ -542,5 +575,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn familiesIdColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn familiesNameColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn familiesCompliantColumn;
+        private System.Windows.Forms.RadioButton familyFormatBS8541;
+        private System.Windows.Forms.TextBox familyType;
     }
 }

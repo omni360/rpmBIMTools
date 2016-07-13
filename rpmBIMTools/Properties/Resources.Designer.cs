@@ -133,9 +133,39 @@ namespace rpmBIMTools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ExportImportSchedule32 {
+            get {
+                object obj = ResourceManager.GetObject("ExportImportSchedule32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ExportModel32 {
             get {
                 object obj = ResourceManager.GetObject("ExportModel32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ExportSchedule32 {
+            get {
+                object obj = ResourceManager.GetObject("ExportSchedule32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FamilyLibrary32 {
+            get {
+                object obj = ResourceManager.GetObject("FamilyLibrary32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +193,9 @@ namespace rpmBIMTools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ImportExportSchedule32 {
+        internal static System.Drawing.Bitmap ImportSchedule32 {
             get {
-                object obj = ResourceManager.GetObject("ImportExportSchedule32", resourceCulture);
+                object obj = ResourceManager.GetObject("ImportSchedule32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -246,6 +276,16 @@ namespace rpmBIMTools.Properties {
         internal static string LVSchematicSchema {
             get {
                 return ResourceManager.GetString("LVSchematicSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Preview {
+            get {
+                object obj = ResourceManager.GetObject("Preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

@@ -35,6 +35,7 @@
             this.viewLabel = new System.Windows.Forms.Label();
             this.sectionBoxOffset = new System.Windows.Forms.TrackBar();
             this.previewWindow = new System.Windows.Forms.Integration.ElementHost();
+            this.displayStyle = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.sectionBoxOffset)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,9 +91,9 @@
             this.sectionBoxOffset.Location = new System.Drawing.Point(12, 404);
             this.sectionBoxOffset.Maximum = 50;
             this.sectionBoxOffset.Name = "sectionBoxOffset";
-            this.sectionBoxOffset.Size = new System.Drawing.Size(460, 30);
+            this.sectionBoxOffset.Size = new System.Drawing.Size(298, 30);
             this.sectionBoxOffset.TabIndex = 5;
-            this.sectionBoxOffset.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.sectionBoxOffset.Scroll += new System.EventHandler(this.updatePreview);
             // 
             // previewWindow
             // 
@@ -106,6 +107,23 @@
             this.previewWindow.Text = "elementHost1";
             this.previewWindow.Child = null;
             // 
+            // displayStyle
+            // 
+            this.displayStyle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.displayStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayStyle.FormattingEnabled = true;
+            this.displayStyle.Items.AddRange(new object[] {
+            "Wireframe",
+            "Hidden Line",
+            "Shaded",
+            "Consistent Colors",
+            "Realistic"});
+            this.displayStyle.Location = new System.Drawing.Point(316, 409);
+            this.displayStyle.Name = "displayStyle";
+            this.displayStyle.Size = new System.Drawing.Size(156, 21);
+            this.displayStyle.TabIndex = 8;
+            this.displayStyle.SelectedIndexChanged += new System.EventHandler(this.updatePreview);
+            // 
             // createSectionBox
             // 
             this.AcceptButton = this.createButton;
@@ -113,6 +131,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(484, 482);
+            this.Controls.Add(this.displayStyle);
             this.Controls.Add(this.previewWindow);
             this.Controls.Add(this.sectionBoxOffset);
             this.Controls.Add(this.viewLabel);
@@ -143,5 +162,6 @@
         private System.Windows.Forms.Label viewLabel;
         private System.Windows.Forms.TrackBar sectionBoxOffset;
         private System.Windows.Forms.Integration.ElementHost previewWindow;
+        private System.Windows.Forms.ComboBox displayStyle;
     }
 }

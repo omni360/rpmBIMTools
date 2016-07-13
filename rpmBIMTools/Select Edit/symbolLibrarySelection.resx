@@ -117,50 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="viewName.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="createButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cancelButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="viewLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="sectionBoxOffset.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="previewWindow.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAA
-        AAAAAABPAAAAtQAAALUAAABPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACPAAAArQAAALAAAAAbAAAAAAAA
-        AAAAAAAAAAAAtQAAAAEAAAABAAAAtgAAAFQAAABUAAAAVAAAAFQAAAB4AAAAeAAAAAAAAAAjAAAAkwAA
-        AAAAAAAAAAAAAAAAALUAAAABAAAAAQAAALYAAABUAAAAVAAAAFQAAABUAAAAeAAAAHgAAAAAAAAAIwAA
-        AJMAAAAAAAAAAAAAAAAAAABPAAAAtgAAALYAAAC2AAAAAQAAAAAAAAAAAAAAAAAAAAAAAACPAAAArwAA
-        AMkAAABrAAAAAAAAAAAAAAAAAAAAAAAAAFUAAABVAAAAawAAAMkAAACtAAAAjwAAAAAAAAAAAAAAAAAA
-        AKkAAAABAAAAtgAAALUAAAC1AAAATwAAAAAAAABVAAAAVQAAAJMAAAAjAAAAAAAAAHgAAAB4AAAAVQAA
-        AFUAAADGAAAAVQAAALYAAAABAAAAAQAAALUAAAAAAAAAVQAAAFUAAACTAAAAIwAAAAAAAAB4AAAAeAAA
-        AFUAAABVAAAAxgAAAFUAAAC2AAAAAQAAAAEAAAC1AAAAAAAAAFUAAABVAAAAGwAAALAAAACvAAAAjwAA
-        AAAAAAAAAAAAAAAAAKkAAAAAAAAATwAAALYAAAC2AAAATwAAAE8AAAC2AAAAtgAAAE8AAAAAAAAAqQAA
-        AAAAAAAAAAAAAAAAAI8AAACvAAAAsAAAABsAAABUAAAAVAAAAAAAAAC1AAAAAQAAAAEAAAC2AAAAVQAA
-        AMYAAABVAAAAVQAAAHgAAAB4AAAAAAAAACMAAACTAAAAVAAAAFQAAAAAAAAAtQAAAAEAAAABAAAAtgAA
-        AFUAAADGAAAAVQAAAFUAAAB4AAAAeAAAAAAAAAAjAAAAkwAAAFQAAABUAAAAAAAAAE8AAAC1AAAAtQAA
-        ALYAAAABAAAAqQAAAAAAAAAAAAAAAAAAAI8AAACtAAAAyQAAAGsAAABUAAAAVAAAAAAAAAAAAAAAAAAA
-        AAAAAABrAAAAyQAAAK8AAACPAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAC2AAAAtgAAALYAAABPAAAAAAAA
-        AAAAAAAAAAAAkwAAACMAAAAAAAAAeAAAAHgAAABVAAAAVQAAAFUAAABVAAAAtgAAAAEAAAABAAAAtQAA
-        AAAAAAAAAAAAAAAAAJMAAAAjAAAAAAAAAHgAAAB4AAAAVQAAAFUAAABVAAAAVQAAALYAAAABAAAAAQAA
-        ALUAAAAAAAAAAAAAAAAAAAAbAAAAsAAAAK0AAACPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABPAAAAtQAA
-        ALUAAABPD4cAAAAnAAAAJwAAB4cAAIHAAACEAAAAhAAAAIHQAAALgQAAACEAAAAhAAADgQAA4eAAAOQA
-        AADkAAAA4fAAAA==
+        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA
+        AAD///8B////Af///wH///8B////Af///wH///8B////AQAAAAsAAAArAAAAMwAAACsAAAAL////Af//
+        /wH///8B////Af///wH///8B////Af///wH///8BAAAAEwAAADFnTStZtYZK2cGPT/+2hkrZaE0rWQAA
+        ADEAAAAT////Af///wEAAAALAAAACwAAAAsAAAAJAAAAM4xoOHm8i0z51aJj//fAgv//3bP/5rd//8WT
+        Vv+8i0v5i2g6ewAAADMAAAAvKVl6XyZVdV0lU3RbHExvVc2OQv/YomL/9L6B//jBgv/zunn/++HB//vP
+        m///1qX/88aQ/9iqb/+9jEz/RZjQ8UOY0v9AlND/PZLR/zOV3f/Kiz//9L19/+y2dv/msG//7L2E//3w
+        3v//yJD/9siS//fMmf//1KL/2adv/0SZ0v8/lND/q/v//5r0//+J9v//xoY7/+Osav/huIL/7+DD/93R
+        uP/g07b/5OfX/+7Sqv/0xpP/8cWR/9ela/9Dl9H/Vqzd/47a9f+h7///e+z//8mNR//t3b3/39Cz/+Cz
+        gP/wzKX//924///TpP/t0av/6O3c//Dozv/ZpGn/QpbR/3HE6v9svOb/u/P//2/j///Ahj7/5K9z///s
+        z///27D//8qS/9Wnbv//6c7//9mv///Lkv/tu4D/5aZj/0CV0P+Q3fj/RKDY/9z9///Y/P//1P///87R
+        v//HoWn/6LF4///rzv//27H//8uS/+CnaP/NnmH/j6ut/yRwpmk+k8//svb//1Gs3v81isv/NIvL/zOM
+        zv8yjdL/UsL2/3nG1P/KpHD/569w/8eeZf97y+D/eeL//6Xi/f83isTHPZLP/7jz//933/7/e+D+/3zh
+        //984f//feL//1Cs4P9Ru+//0fv//8zy/f/N+f//0Pj//9P4///a/f//PpTR/zySz//A8///cNn7/3Pa
+        +/902vv/dNr7/3Tb+/923v3/T6rd/zWMzP8zjM3/MozN/zKMzf83kM7/PZTQ/0OY0q87ks//yvb//2nV
+        +f9s1fn/atT5/2nU+f9p1fn/atb6/2vY+/9r2fz/a9r9/2na/f/a/f//PJPQ/zZ7qi////8BO5LP/9X3
+        //9g0fn/YdD4/7Tr/f/Z9v//2vj//9r4///a+f//2/n//9r5///a+v//3/7//z2U0P9FmdM1////AT2U
+        0P/c/P//2Pf//9j3///b+v//NY7N/zmRzv86ks//OpLP/zqSz/86ks//OpLP/z2U0P9CmNLr////Af//
+        /wFDmNLvPZTQ/zqSz/86ks//PZTQ/0GX0eVDmNIrRJjSM0SY0jNEmNIzRJjSM0SZ0jNEmdM3////Af//
+        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
+        //8AAP//AAD//w==
 </value>
   </data>
 </root>

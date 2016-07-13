@@ -125,6 +125,72 @@ namespace rpmBIMTools
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Opens the drawing number calculator with modified functions to return an array of sheet numbers and titles.
+        /// </summary>
+        /// <param name="doc">Document</param>
+        /// <param name="arrayCount">Number of sheets to return in the array.</param>
+        /// <returns></returns>
+        public static Dictionary<string, string> GetArrays(Document doc, int arrayCount)
+        {
+            // Creating Empty String Array for return
+            Dictionary<string, string> dwgNumList = new Dictionary<string, string>();
+
+            // Passing document from outside application
+            rpmBIMTools.Load.liveDoc = doc;
+
+            // Open Drawing Number Calculator like normal
+            DwgNumCalc form = new DwgNumCalc();
+
+            // Edit Drawing Number Calculator for returning an array
+            form.CopyToClipboard.Visible = false;
+            form.CopyToNewSheet.Visible = false;
+            form.CopyToSheet.Visible = false;
+            form.SheetSize.Visible = false;
+            form.SheetNum.Enabled = false;
+            form.DrawingType.Enabled = false;
+            form.DrawingType.SelectedIndex = 6;
+            form.arrayButton.Visible = true;
+
+            // Open Drawing Number Calculator
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                // Sheet Colleection for checking
+                ICollection<ViewSheet> sheetList = new FilteredElementCollector(doc)
+                        .OfClass(typeof(ViewSheet))
+                        .OfCategory(BuiltInCategory.OST_Sheets)
+                        .Cast<ViewSheet>()
+                        .ToList();
+
+                for (int i = 1; i <= arrayCount; i++)
+                {
+                    form.SheetNum.Value = i;
+                    bool found = sheetList.Any(vs => vs.SheetNumber == form.Get_DwgNum());
+                    if (found)
+                    {
+                        arrayCount++;
+                        continue;
+                    }
+
+                    dwgNumList.Add(form.Get_DwgNum(), form.Get_Title());
+                }
+            }
+            return dwgNumList;
+        }
+
+        private void arrayButton_Click(object sender, EventArgs e)
+        {
+            if (FormValidation())
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+            {
+                TaskDialog.Show("Create New Sheet", "Please ensure all fields have been selected.");
+            }
+        }
+
         private void Form_Load(object sender, EventArgs e)
         {
             // Find Revit Project Number and use
@@ -330,7 +396,7 @@ namespace rpmBIMTools
             DwgNum += "NGB-"; // Originator
             DwgNum += Get_DwgNum(); // Get rest of drawing number
             this.DwgNum.Text = DwgNum; // Sets final drawing number generated
-        }
+        }        
 
         private bool FormValidation()
         {
@@ -442,7 +508,7 @@ namespace rpmBIMTools
                 using (Transaction t = new Transaction(doc, "Set Drawing Number"))
                 {
                     t.Start();
-                    Autodesk.Revit.DB.ViewSheet viewSheet = doc.ActiveView as ViewSheet;
+                    ViewSheet viewSheet = doc.ActiveView as ViewSheet;
                     Update_Titleblock(viewSheet);
                     t.Commit();
                     ZoomToTitleBlock();
@@ -461,12 +527,9 @@ namespace rpmBIMTools
             viewSheet.SheetNumber = Get_DwgNum();
             viewSheet.Name = Get_Title();
             viewSheet.get_Parameter(BuiltInParameter.SHEET_ISSUE_DATE).Set(DateTime.Today.ToString("dd/MM/yy"));
-            if (viewSheet.LookupParameter("STATUS") != null)
-                viewSheet.LookupParameter("STATUS").Set("S3 - For Review & Comment");
-            if (viewSheet.LookupParameter("Sub-Discipline") != null)
-                viewSheet.LookupParameter("Sub-Discipline").Set(Get_ServiceCode().Replace("-", "") + " - " + ServiceType.Text);
-            if (viewSheet.LookupParameter("Drawn By") != null)
-                viewSheet.LookupParameter("Drawn By").Set(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(username));
+            viewSheet.SetStatus("S3 - For Review & Comment");
+            viewSheet.SetSubDiscipline(Get_ServiceCode().Replace("-", "") + " - " + ServiceType.Text);
+            viewSheet.SetDrawnBy(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(username));
         }
     }
 }

@@ -202,11 +202,7 @@ namespace rpmBIMTools
             using (Transaction trans = new Transaction(doc, "Creating Drafting View"))
             {
                 trans.Start();
-                ViewFamilyType vft = new FilteredElementCollector(doc)
-                    .OfClass(typeof(ViewFamilyType))
-                    .Cast<ViewFamilyType>()
-                    .FirstOrDefault(q => q.ViewFamily == ViewFamily.Drafting);
-                draftView = ViewDrafting.Create(doc, vft.Id);
+                draftView = ViewDrafting.Create(doc, doc.GetViewFamilyType(ViewFamily.Drafting).Id);
                 draftView.LookupParameter("Sub-Discipline").Set("E61 - Main HV / LV Distribution");
                 draftView.Discipline = ViewDiscipline.Coordination;
                 draftView.ViewName = schematic.Name.Trim();
@@ -1283,8 +1279,8 @@ namespace rpmBIMTools
                         username = username.Substring(username.Length - 1, 1) + " " + username.Substring(0, 1) + username.Substring(1, username.Length - 2);
                         trans.Start();
                         ViewSheet viewSheet = ViewSheet.Create(doc, titleBlock.Id);
-                        viewSheet.LookupParameter("Sub-Discipline").Set("E61 - Main HV / LV Distribution");
-                        viewSheet.LookupParameter("Drawn By").Set(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(username));
+                        viewSheet.SetSubDiscipline("E61 - Main HV / LV Distribution");
+                        viewSheet.SetDrawnBy(System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(username));
                         viewSheet.SheetNumber = "00-XX-SM-E-61" + i.ToString("00");
                         viewSheet.Name = "Main HV / LV Distribution Schematic, " + schematic.Name.Trim() + ", Sheet " + i.ToString();
                         if (scheduleView != null)

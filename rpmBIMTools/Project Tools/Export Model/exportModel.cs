@@ -540,8 +540,7 @@ namespace rpmBIMTools
                     t.Start();
                     Element oldExport3DView = rpmBIMUtils.FindElementByName(doc, typeof(View3D), "Landing Page");
                     if (oldExport3DView != null) { doc.Delete(oldExport3DView.Id); }
-                    ViewFamilyType vft = rpmBIMUtils.GetViewFamilyType(doc, ViewFamily.ThreeDimensional);
-                    threeDView = View3D.CreateIsometric(doc, vft.Id);
+                    threeDView = View3D.CreateIsometric(doc, doc.GetViewFamilyType(ViewFamily.ThreeDimensional).Id);
                     threeDView.DetailLevel = ViewDetailLevel.Fine;
                     threeDView.DisplayStyle = DisplayStyle.Realistic;
                     threeDView.ViewName = "Landing Page";

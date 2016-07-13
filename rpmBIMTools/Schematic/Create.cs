@@ -24,6 +24,18 @@ namespace rpmBIMTools.Create
     }
 
     //------------------------------------------------------------------------------------------
+    // Element Classes
+
+    /// <summary>
+    /// Set of Revit elements for UI Display
+    /// </summary>
+    public class ReferenceItem
+    {
+        public string Name { get; set; }
+        public int Index { get; set; }
+    }
+
+    //------------------------------------------------------------------------------------------
     // LV Schematic Classes
 
     [XmlRoot(ElementName = "schematic")]

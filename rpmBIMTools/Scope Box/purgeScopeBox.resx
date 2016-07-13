@@ -117,35 +117,80 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="scopeBoxGrid.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>52</value>
+  <metadata name="elementId.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="selectedScopeBox.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="name.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="counter.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="status.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="purgeUnusedButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="purgeSelectedButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="closeButton.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="scopeBoxGridLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="filterByNameLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="inUseCheck.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="filterByName.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="unusedCheck.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="inUseCheckLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="unusedCheckLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8AAAAzAAAAGwAAADMAAAAzAAAAMwAA
-        AB4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACG9g0Xv1IRE/wB7RKAAjUz/AItK/wCM
-        TP8AfkWsAAAAHgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACKndjy42JlT/0yJSf8AmVz/ALuG/3fg
-        xv8Au4b/AJlc/wB+RawAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACndju968WQ/+yqYP8Aikr/AMGN/wC8
-        g///////ALyD/wDBjf8AjEz/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtX89///x0P/qplv/AIdG/3Hm
-        zf////////////////90583/AIpJ/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIbN8Ov////r/56NY/wCG
-        Rf8L06T/MNqw//////8x2rH/EtSl/wCLSv8AAAAAAAAAAAAAAAAAAAAAAAAAIap6Prbermn/+tOU//fB
-        ff9anVz/AJ9i/wDSnP+i9+b/ANOd/wCjZv8Ajk6XAAAAAAAAAAAAAAAAAAAAIal5PbntwYL/+dKT//TN
-        jf/yxoT//MGA/1ygYv8AhkT/C6Fo/wCKSf8Ajk6WAAAAAAAAAAAAAAAAAAAAIal4PLnux4//+Nag//bP
-        j//vyYb/6sB9/+i4c//ywYn/77N7/4t7PMkAAAAhAAAAAAAAAAAAAAAAAAAAIal3Ornvz5//+9uu//XM
-        if/yy4r/7MKA/+a7dv/gs2v/26pj/+jElP/kt4b/tHM3tQAAACEAAAAAAAAAIq59QLnx1q///ejG//bM
-        if/zyof/7cN+/+e8dv/htWz/3K1j/9elWv/SoFX/6Mym/9+/lP+qdTW5AAAAIqZ0N73/7cz///Ld//ra
-        p//96Mf///Pg//3z4//358z/9eTK//bq1//z4sv/6M6l/9mze//v3sb/5M2p/6d2Ob21fjr///7y//Xj
-        xv/ozqT/3ruF/9OlXv/Rm0n/16JP/9umVP/SmkX/06Zf/9avc//XtH3/3cCW/+7exv+3gD3/tX46////
-        //+gYgD/r3IS/7mAI//FjDL/z5dC/9ikUf/dqFb/05xI/8mROf+/hyv/tXoc/6lrB//37eD/t4E+/7Z/
-        PP//9tz/6MKE//DSov/14MD/9uLC//bjwf/14MD/9N+8//Dat//s1bL/6dKt/9u6hv/Oo2D/4MOZ/7iC
-        Qf+3gUAl3baDgsuXU87IllP0xpRS/8aTUf/EkU3/xpde/8KQT//Ai0j/v4tH/76JRv++iUX0vohDzsib
-        YIK5hEQl/wEAAP4AAAD8AAAA/AAAAPwAAAD4AAAA8AAAAOABAADAAwAAgAEAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAA==
+        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA
+        AAD///8B////Af///wH///8B////Af///wH///8BDw8OHxkZGH0AAQAf////Af///wH///8B////Af//
+        /wH///8BHw8ADZ9yOoWkekSjsYZOnbqMUJ9qQQudJSIdo4qFgu2gnZ3/SERC7VlDJ6OyhEidoXhCnaZ9
+        RqOecjqFIA8ADUoAABnivpDx/u7T/9bDqP+XjX//lYl7/7q5u/+Qrsj/UJjH/VR7mv+Cd2r///LS//Td
+        wP/86M7/4r6Q8UoAABk0AAAZ7s6j78S7sP+DenL7s7S5+4+uy/tAirv7IovD/xqCt/8XS2j/taSN+//m
+        w/vz1rP7+d28/+TEm+9OAAAZIgAAGffVqfGSlJX/eJ27/0yYyP8gkMv/V3iI/0tYXv99dGX/5L2U//vd
+        tv/11bH/886k//zo0P/mx57xTQAAGTcAABny0KTxwL24/x1Qa/8hhLX/MmN6/3Rzcv8pTV//vLWt///8
+        6//36Nb//PDg//bdv//869T/58ac8VQHABlXDAAZ58ec8f//+v/l0sD/jouE/+ve0v/k2dH/L2yL/05v
+        fv/66tj/+uvW//vu3f/33b7/++bM/+jHnvFZDwAZXBMAGenIn/H98eP//fXm////+f/68eH///zr/4+W
+        lf8bYYX/tK6q///+8P/569j/9dez//riw//pyaHxXBQAGWEbABnqy6Lx++rS//fky//48OX/+vDi///z
+        4P/mz7f/NW2H/1Jygv/87+T//fft//jlzf/65Mb/6sqh8WIcABlkIwAZ682k8fnfvv/12rj/+uvW//vt
+        2v/47d7///Tb/4yNhf8bYob/s6uf////8//47Nv//vTm/+vNpfFjIAAZaiYAGe3PqfH32rP/9NKn//ji
+        xf/448f/+ebQ///04f/mzLL/NWyH/1Fwe//76c7/+ObP//3x4v/tz6nxZyQAGWsrABnu0a3v9tSo//LL
+        mf/22LH/9teu//batf/z27v///DS/4yOh/8bYof/sqOK///mv//45Mr/7tKu72onABl9OAAX8NOw7/jd
+        u//11rD/+OHC//ffvv/3377/9t/A//3qzf/kyaz/NW2J/1Fvd//32bL/+eXL//DUsO98NwAX////AezO
+        qKP65s3/+N28+/nmzPv55Mn7+eXK+/nlyfv14cb7/+/P+4qKgPsaZIv9sp6C+//02P/nyaSj////Af//
+        /wFVAAAF7s2jtffbuf/33r799969//fevf/33r7/9t29//zlxf/mxaH/OnCK/VRxeP/twZC1cBkABf//
+        /wH///8B////Abx8LwntyJlx8MmXi/DIl4fwyJeH8MiXh/DIl4fpxJWJ/92fe2lnXM8gRlrJtwAAA///
+        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
+        //8AAP//AAD//w==
 </value>
   </data>
 </root>

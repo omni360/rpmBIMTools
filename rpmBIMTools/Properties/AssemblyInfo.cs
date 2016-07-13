@@ -33,7 +33,7 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.13.*")]
+[assembly: AssemblyVersion("1.17.*")]
 //[assembly: AssemblyFileVersion("1.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-GB")]
 
@@ -60,3 +60,13 @@ using System.Resources;
 //                          (Update) Create Section Box - Fixed issue with selection of objects the first time the utility was ran
 //                          (Update) rpmBIMTools Solution - Support for Revit 2017 added
 //                          (Update) Family Name Editor - Set Uniclass list to be in alphanumetic order
+//                          (Update) Model Expoter - Increased width of landing page dropdown list for improved visability
+// 1.13.5995 - 31/05/2016   (Update) Family Name Editor - Added the standard BS 8541-2012 and set as default (BS 8541-2012)
+// 1.13.5997 - 02/06/2016   (Update) Family Name Editor - Updated uniclass to latest version (March 2016 release)
+// 1.14.6004 - 09/06/2016   (New) Export / Import Schedule - Producing application for  company use, major testing still required, only the export feature is semi complete at this time.
+// 1.14.6008 - 13/06/2016   (Update) rpmBIMTools - Updated application for changes to STATUS parameter to Status on viewSheets
+// 1.15.6010 - 15/06/2016   (Update) Export / Import Schedule - Development completed, testing script for any issues
+// 1.16.6022 - 27/06/2016   (New) Special Character tab added for Text Notes for easy character insertion
+// 1.16.6023 - 28/06/2016   (Update) Drawing Number Calculator - Increase project number character limit from 7 to 8 characters for longer project numbers
+// 1.17.6038 - 13/07/2016   (New) Family Library - Utility Added
+//                          (Update) QuickSelect - Fixed issue that would allow the select button to be clickable when no elements were detected in the model or view

@@ -33,6 +33,7 @@
     <Reference Include="EPPlus">
       <HintPath>..\packages\EPPlus.4.0.5\lib\net20\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -47,12 +48,20 @@
       <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2015\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="AdWindows" Condition=" '$(Configuration)' == '2015'">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2015\AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="RevitAPI" Condition=" '$(Configuration)' == '2016'">
       <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2016\RevitAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPIUI" Condition=" '$(Configuration)' == '2016'">
       <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2016\RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AdWindows" Condition=" '$(Configuration)' == '2016'">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2016\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="RevitAPI" Condition=" '$(Configuration)' == '2017'">
@@ -63,11 +72,18 @@
       <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2017\RevitAPIUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="AdWindows" Condition=" '$(Configuration)' == '2017'">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2017\AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xaml" />
@@ -87,6 +103,7 @@
     <Compile Include="Admin Tools\Generate GUID\generateDialog.Designer.cs">
       <DependentUpon>generateDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Misc\SpecialCharacters.cs" />
     <Compile Include="Project Tools\Project Sheet Duplicator\projectSheetSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,8 +111,12 @@
       <DependentUpon>projectSheetSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Project Tools\Project Sheet Duplicator\projectSheetDuplicator.cs" />
-    <Compile Include="rpmBIMTools.cs">
+    <Compile Include="rpmBIMTools.cs" />
+    <Compile Include="Schedule\exportImportSchedule.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Schedule\exportImportSchedule.Designer.cs">
+      <DependentUpon>exportImportSchedule.cs</DependentUpon>
     </Compile>
     <Compile Include="Schematic\Create.cs" />
     <Compile Include="Schematic\importLVSchematic.cs" />
@@ -135,24 +156,37 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Visual Tools\toggleSectionBox.cs" />
-    <Compile Include="Visual Tools\createSectionBox.cs">
+    <Compile Include="Section Box\toggleSectionBox.cs" />
+    <Compile Include="Section Box\createSectionBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Visual Tools\createSectionBox.Designer.cs">
+    <Compile Include="Section Box\createSectionBox.Designer.cs">
       <DependentUpon>createSectionBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Visual Tools\purgeScopeBox.cs">
+    <Compile Include="Scope Box\purgeScopeBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Visual Tools\purgeScopeBox.Designer.cs">
+    <Compile Include="Scope Box\purgeScopeBox.Designer.cs">
       <DependentUpon>purgeScopeBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Select Edit\familyLibrary.cs" />
     <Compile Include="Select Edit\familyNameEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Select Edit\familyNameEditor.Designer.cs">
       <DependentUpon>familyNameEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Select Edit\familyLibrarySelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Select Edit\familyLibrarySelection.Designer.cs">
+      <DependentUpon>familyLibrarySelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Select Edit\symbolLibrarySelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Select Edit\symbolLibrarySelection.Designer.cs">
+      <DependentUpon>symbolLibrarySelection.cs</DependentUpon>
     </Compile>
     <Compile Include="Select Edit\quickSelect.cs">
       <SubType>Form</SubType>
@@ -161,6 +195,8 @@
       <DependentUpon>quickSelect.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Utils\FolderSelect\Reflector.cs" />
+    <Compile Include="Utils\FolderSelect\FolderSelectDialog.cs" />
     <Compile Include="Utils\rpmBIMExt.cs" />
     <Compile Include="Utils\rpmBIMUtils.cs" />
     <Compile Include="Utils\ProcessingWindow.cs">
@@ -204,6 +240,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Admin Tools\Generate GUID\generateDialog.resx">
       <DependentUpon>generateDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schedule\exportImportSchedule.resx">
+      <DependentUpon>exportImportSchedule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Schematic\exportLVSchematic.resx">
       <DependentUpon>exportLVSchematic.cs</DependentUpon>
@@ -220,11 +260,14 @@
     <EmbeddedResource Include="Project Tools\Project Setup\projectSetupFiles.resx">
       <DependentUpon>projectSetupFiles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Visual Tools\createSectionBox.resx">
+    <EmbeddedResource Include="Section Box\createSectionBox.resx">
       <DependentUpon>createSectionBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Visual Tools\purgeScopeBox.resx">
+    <EmbeddedResource Include="Scope Box\purgeScopeBox.resx">
       <DependentUpon>purgeScopeBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Select Edit\familyLibrarySelection.resx">
+      <DependentUpon>familyLibrarySelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Select Edit\familyNameEditor.resx">
       <DependentUpon>familyNameEditor.cs</DependentUpon>
@@ -234,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Select Edit\quickSelect.resx">
       <DependentUpon>quickSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Select Edit\symbolLibrarySelection.resx">
+      <DependentUpon>symbolLibrarySelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\ProcessingWindow.resx">
       <DependentUpon>ProcessingWindow.cs</DependentUpon>
@@ -267,7 +313,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Admin Tools\Bulk File Updater\" />
-    <Folder Include="Schedule\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

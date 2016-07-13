@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.IO;
 
 using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Events;
-using Autodesk.Revit.Exceptions;
 
-namespace rpmBIMTools {
+namespace rpmBIMTools
+{
 
     /// <summary>
     /// A collection of utilities used for rpmBIMTools Projects.
@@ -43,11 +39,7 @@ namespace rpmBIMTools {
         {
             Transaction t = new Transaction(doc, "Get Line Styles");
             t.Start();
-            ViewFamilyType vft = new FilteredElementCollector(doc)
-                .OfClass(typeof(ViewFamilyType))
-                .Cast<ViewFamilyType>()
-                .FirstOrDefault(q => q.ViewFamily == ViewFamily.Drafting);
-            ViewDrafting vd = ViewDrafting.Create(doc, vft.Id);
+            ViewDrafting vd = ViewDrafting.Create(doc, doc.GetViewFamilyType(ViewFamily.Drafting).Id);
             DetailCurve dc = doc.Create.NewDetailCurve(vd, Line.CreateBound(new XYZ(0, 0, 0), new XYZ(1, 0, 0)));
             ICollection<ElementId> lineStyles = dc.GetLineStyleIds();
             t.RollBack();
@@ -84,19 +76,6 @@ namespace rpmBIMTools {
                 e => e.Name.Equals(targetName));
         }
         /// <summary>
-        /// Returns a ViewFamilyType used for creating a view.
-        /// </summary>
-        /// <param name="doc">The document to check.</param>
-        /// <param name="viewFamily">viewFamily type to return.</param>
-        /// <returns></returns>
-        public static ViewFamilyType GetViewFamilyType(Document doc, ViewFamily viewFamily)
-        {
-            return new FilteredElementCollector(doc)
-                    .OfClass(typeof(ViewFamilyType))
-                    .Cast<ViewFamilyType>()
-                    .FirstOrDefault(q => q.ViewFamily == viewFamily);
-        }
-        /// <summary>
         /// Clean filename so it can be used as a valid system path
         /// </summary>
         /// <param name="filename">The filename.</param>
@@ -115,6 +94,16 @@ namespace rpmBIMTools {
         public static string GetSafeFamilyName(string familyName)
         {
             familyName = Regex.Replace(familyName, @"[^0-9a-zA-Z-]", "_");
+            return familyName;
+        }
+        /// <summary>
+        /// Clean family name so it can be used as a valid string for naming
+        /// </summary>
+        /// <param name="familyName">The filename.</param>
+        /// <returns></returns>
+        public static string GetSafeFamilyName2(string familyName)
+        {
+            familyName = Regex.Replace(familyName, @"[^0-9a-zA-Z-]", "-");
             return familyName;
         }
         /// <summary>
