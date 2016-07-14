@@ -70,6 +70,10 @@ namespace rpmBIMTools
             checkboxHeader.Location = rect.Location;
             checkboxHeader.CheckedChanged += new EventHandler(checkboxHeader_CheckedChanged);
             scopeBoxGrid.Controls.Add(checkboxHeader);
+
+            // Try To Select First Row
+            if (scopeBoxGrid.Rows.Count != 0) scopeBoxGrid.Rows[0].Selected = true;
+
         }
 
         private void checkboxHeader_CheckedChanged(object sender, EventArgs e)
