@@ -30,6 +30,19 @@ namespace rpmBIMTools
             ClickTimer.Elapsed += new System.Timers.ElapsedEventHandler(EvaluateClicks);
             InitializeComponent();
             this.Size = new Size(Properties.Settings.Default.familyLibrary_width, Properties.Settings.Default.familyLibrary_height);
+            this.HelpRequested += helpRequest;
+            this.HelpButtonClicked += helpButtonClick;
+        }
+
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.google.com");
+        }
+
+        private void helpButtonClick (object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.google.com");
+            e.Cancel = true;
         }
 
         private void familyLibrarySelection_Load(object sender, EventArgs e)
@@ -89,11 +102,6 @@ namespace rpmBIMTools
                     familyView.Controls.Clear(); // Remove any controls on the familyView
                     // Calculate image size
                     int count = dirNode.GetNodeCount(false);
-                    //int size = count < 5 ? 203 :
-                    //    count < 10 ? 135 :
-                    //    count < 17 ? 101 :
-                    //    count < 26 ? 81 :
-                    //    count < 37 ? 68 : 58;
                     int size = 102;
                     int gap = 2;
                     int xPos = 0;

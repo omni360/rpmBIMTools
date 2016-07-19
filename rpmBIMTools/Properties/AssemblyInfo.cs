@@ -70,3 +70,4 @@ using System.Resources;
 // 1.16.6023 - 28/06/2016   (Update) Drawing Number Calculator - Increase project number character limit from 7 to 8 characters for longer project numbers
 // 1.17.6038 - 13/07/2016   (New) Family Library - Utility Added
 //                          (Update) QuickSelect - Fixed issue that would allow the select button to be clickable when no elements were detected in the model or view
+// 1.17.6044 - 19/07/2016   (Update) Project Setup - Corrected issue due to the starting view was changed in the NGB Templates

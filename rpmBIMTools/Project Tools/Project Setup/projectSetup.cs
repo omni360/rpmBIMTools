@@ -258,6 +258,14 @@ namespace rpmBIMTools
                 t.Commit();
             }
 
+            // Open 3D MEP Services View
+            Autodesk.Revit.DB.View MEPView = new FilteredElementCollector(doc)
+                .OfClass(typeof(Autodesk.Revit.DB.View))
+                .Cast<Autodesk.Revit.DB.View>()
+                .FirstOrDefault(v => v.ViewName == "00 - MEP Services");
+
+            uiApp.ActiveUIDocument.ActiveView = MEPView;
+
             // Create elevation views based on architect model
             using (Transaction t = new Transaction(doc, "Creating Elevations"))
             {
