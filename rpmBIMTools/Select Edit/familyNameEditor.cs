@@ -78,6 +78,17 @@ namespace rpmBIMTools {
             InitializeComponent();
         }
 
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Family-Name-Editor");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Family-Name-Editor");
+            e.Cancel = true;
+        }
+
         private void familyNameEditor_Load(object sender, EventArgs e)
         {
             // Create Uniclass List From Json File

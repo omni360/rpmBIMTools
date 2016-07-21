@@ -108,6 +108,17 @@
             buttonBulkFileUpdater.LargeImage = EmbededBitmap(Properties.Resources.BulkFileUpdater32);
             buttonBulkFileUpdater.LongDescription = "TBC";
 
+            // About
+
+            RibbonPanel ribbonTabHelpInformation = application.CreateRibbonPanel(mainTabName, "Help");
+
+            PushButton buttonWiki = ribbonTabHelpInformation.AddItem(new PushButtonData("wikiGuides", "Wiki\nGuides", rpmBIM_Tools_Path, "rpmBIMTools.openWikiSite")) as PushButton;
+            buttonWiki.LargeImage = EmbededBitmap(Properties.Resources.Guide32);
+            buttonWiki.LongDescription = "Opens a web browser to the rpmBIMTools Wiki Guides";
+            PushButton buttonAbout = ribbonTabHelpInformation.AddItem(new PushButtonData("aboutRpmBIMTools", "About", rpmBIM_Tools_Path, "rpmBIMTools.TBC")) as PushButton;
+            buttonAbout.LargeImage = EmbededBitmap(Properties.Resources.Help32);
+            buttonAbout.LongDescription = "Basic information about the current version of rpmBIMTools";
+
             // Special Character Panel (Hidden by default)
             RibbonPanel ribbonTabCharacter = application.CreateRibbonPanel(mainTabName, "Characters");
             ribbonTabCharacter.AddStackedItems(
@@ -256,6 +267,17 @@
         {
             generateDialog form = new generateDialog();
             form.ShowDialog();
+            return Result.Succeeded;
+        }
+    }
+
+    [Transaction(TransactionMode.Manual)]
+
+    class openWikiSite : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki");
             return Result.Succeeded;
         }
     }

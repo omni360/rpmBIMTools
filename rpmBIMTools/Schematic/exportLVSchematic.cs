@@ -28,6 +28,17 @@ namespace rpmBIMTools
             InitializeComponent();
         }
 
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/LV-Schematics#export-lv-schematic");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/LV-Schematics#export-lv-schematic");
+            e.Cancel = true;
+        }
+
         private void viewBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int index = this.viewBox.IndexFromPoint(e.Location);

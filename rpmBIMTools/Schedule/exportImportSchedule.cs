@@ -36,6 +36,17 @@ namespace rpmBIMTools
             InitializeComponent();
         }
 
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Export---Import-Schedules");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Export---Import-Schedules");
+            e.Cancel = true;
+        }
+
         private void exportImportSchedules_Load(object sender, EventArgs e)
         {
             // Schedule Views Collection

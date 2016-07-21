@@ -281,6 +281,7 @@
             this.Controls.Add(this.selectionZone);
             this.Controls.Add(this.selectionZoneLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -289,7 +290,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Quick Select";
             this.TopMost = true;
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.helpButtonClick);
             this.Load += new System.EventHandler(this.quickSelect_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.helpRequest);
             this.selectionApplyToBox.ResumeLayout(false);
             this.selectionApplyToBox.PerformLayout();
             this.ResumeLayout(false);

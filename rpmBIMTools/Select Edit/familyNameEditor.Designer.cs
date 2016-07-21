@@ -517,6 +517,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(834, 462);
             this.Controls.Add(this.splitContainer1);
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1500, 500);
@@ -525,7 +526,9 @@
             this.Name = "familyNameEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Family Name Editor";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.helpButtonClick);
             this.Load += new System.EventHandler(this.familyNameEditor_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.helpRequest);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

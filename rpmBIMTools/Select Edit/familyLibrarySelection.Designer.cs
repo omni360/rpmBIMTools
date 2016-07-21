@@ -54,7 +54,7 @@
             // 
             // closeButton
             // 
-            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.closeButton.Location = new System.Drawing.Point(278, 505);
             this.closeButton.Name = "closeButton";
@@ -65,8 +65,6 @@
             // 
             // search
             // 
-            this.search.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.search.Location = new System.Drawing.Point(62, 12);
             this.search.Name = "search";
             this.search.Size = new System.Drawing.Size(316, 20);
@@ -84,9 +82,8 @@
             // 
             // FamilyTree
             // 
-            this.FamilyTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FamilyTree.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.FamilyTree.HideSelection = false;
             this.FamilyTree.Location = new System.Drawing.Point(12, 38);
             this.FamilyTree.Name = "FamilyTree";
@@ -97,7 +94,8 @@
             // 
             // familyView
             // 
-            this.familyView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.familyView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.familyView.AutoScroll = true;
             this.familyView.Location = new System.Drawing.Point(384, 12);
@@ -136,14 +134,17 @@
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1000, 1000);
+            this.MaximumSize = new System.Drawing.Size(1576, 977);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(850, 585);
             this.Name = "familyLibrarySelection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Family Library";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.helpButtonClick);
             this.Load += new System.EventHandler(this.familyLibrarySelection_Load);
+            this.ResizeEnd += new System.EventHandler(this.familyLibrarySelection_ResizeEnd);
             this.SizeChanged += new System.EventHandler(this.familyLibrarySelection_SizeChanged);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.helpRequest);
             this.ResumeLayout(false);
             this.PerformLayout();
 

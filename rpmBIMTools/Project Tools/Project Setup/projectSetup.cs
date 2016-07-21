@@ -319,6 +319,7 @@ namespace rpmBIMTools
             FamilySymbol titleBlockA2 = rpmBIMUtils.findNGBTitleBlock(doc, "A2");
             FamilySymbol titleBlockA3 = rpmBIMUtils.findNGBTitleBlock(doc, "A3");
             FamilySymbol titleBlockA4 = rpmBIMUtils.findNGBTitleBlock(doc, "A4");
+            FamilySymbol titleBlockLandingPage = rpmBIMUtils.findNGBTitleBlock(doc, "Landing Page");
             foreach (Parameter fp in titleBlockA0.Parameters)
             {
                 if (fp.Definition.Name.Contains("NGB") && fp.Definition.ParameterType == ParameterType.YesNo && fp.Definition.ParameterGroup == BuiltInParameterGroup.PG_GRAPHICS)
@@ -353,6 +354,8 @@ namespace rpmBIMTools
                             titleBlockA3.LookupParameter(projectSetupInformation.NGBLocation.Text).Set(1);
                         if (titleBlockA4.LookupParameter(projectSetupInformation.NGBLocation.Text) != null)
                             titleBlockA4.LookupParameter(projectSetupInformation.NGBLocation.Text).Set(1);
+                        if (titleBlockLandingPage.LookupParameter(projectSetupInformation.NGBLocation.Text) != null)
+                            titleBlockLandingPage.LookupParameter(projectSetupInformation.NGBLocation.Text).Set(1);
                     }
                     t.Commit();
                 }

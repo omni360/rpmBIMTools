@@ -71,3 +71,7 @@ using System.Resources;
 // 1.17.6038 - 13/07/2016   (New) Family Library - Utility Added
 //                          (Update) QuickSelect - Fixed issue that would allow the select button to be clickable when no elements were detected in the model or view
 // 1.17.6044 - 19/07/2016   (Update) Project Setup - Corrected issue due to the starting view was changed in the NGB Templates
+// 1.17.6045 - 20/07/2016   (Update) Project Setup - Included NGB Location parameter set to the landing page
+// 1.17.6046 - 21/07/2016   (Update) Ribbon - Added Wiki Guide and About Buttons
+//                          (Update) Other - Added Help (F1) Support for all dialog boxes
+//                          (Update) Family Library - Corrected Scrolling support for family icon panel and allow width change to give more icon columns in grid

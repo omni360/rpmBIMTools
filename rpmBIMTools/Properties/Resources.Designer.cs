@@ -193,6 +193,26 @@ namespace rpmBIMTools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Guide32 {
+            get {
+                object obj = ResourceManager.GetObject("Guide32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Help32 {
+            get {
+                object obj = ResourceManager.GetObject("Help32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ImportSchedule32 {
             get {
                 object obj = ResourceManager.GetObject("ImportSchedule32", resourceCulture);

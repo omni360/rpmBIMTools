@@ -151,6 +151,7 @@
             this.Controls.Add(this.infoText);
             this.Controls.Add(this.duplicateLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(350, 550);
@@ -159,6 +160,8 @@
             this.Name = "projectSheetSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Project Sheet Duplicator";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.helpButtonClick);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.helpRequest);
             this.ResumeLayout(false);
             this.PerformLayout();
 

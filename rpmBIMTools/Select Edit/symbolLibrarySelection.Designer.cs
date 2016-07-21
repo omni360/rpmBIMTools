@@ -63,12 +63,15 @@
             this.ClientSize = new System.Drawing.Size(284, 87);
             this.Controls.Add(this.symbolGroup);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "symbolLibrarySelection";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Family Symbols";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.helpButtonClick);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.helpRequest);
             this.symbolGroup.ResumeLayout(false);
             this.symbolGroup.PerformLayout();
             this.ResumeLayout(false);

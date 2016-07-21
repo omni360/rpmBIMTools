@@ -21,6 +21,17 @@ namespace rpmBIMTools
             InitializeComponent();
         }
 
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Project-Sheet-Duplicator");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Project-Sheet-Duplicator");
+            e.Cancel = true;
+        }
+
         private void templateList_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             duplicateButton.Enabled = (duplicateButton.Enabled = templateList.CheckedItems.Count == 1 && e.NewValue == CheckState.Unchecked) ||

@@ -22,6 +22,7 @@ namespace rpmBIMTools
         public DirectoryInfo familyDirectory = new DirectoryInfo(@"C:\rpmBIM\TempFamilies\");
         private System.Timers.Timer ClickTimer;
         private int ClickCounter;
+        private int windowWidth;
 
         public familyLibrarySelection()
         {
@@ -30,18 +31,16 @@ namespace rpmBIMTools
             ClickTimer.Elapsed += new System.Timers.ElapsedEventHandler(EvaluateClicks);
             InitializeComponent();
             this.Size = new Size(Properties.Settings.Default.familyLibrary_width, Properties.Settings.Default.familyLibrary_height);
-            this.HelpRequested += helpRequest;
-            this.HelpButtonClicked += helpButtonClick;
         }
 
         private void helpRequest(object sender, HelpEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.google.com");
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Family-Library");
         }
 
-        private void helpButtonClick (object sender, CancelEventArgs e)
+        private void helpButtonClick(object sender, CancelEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.google.com");
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Family-Library");
             e.Cancel = true;
         }
 
@@ -53,6 +52,16 @@ namespace rpmBIMTools
             cachedNode = FamilyTree.GetAllNodes().FirstOrDefault(tn => tn.FullPath == Properties.Settings.Default.familyLibrary_savedDirectory);
             if (cachedNode != null)FamilyTree.SelectedNode = cachedNode;
             FamilyTree.Select();
+            windowWidth = this.Width;
+        }
+
+        private void familyLibrarySelection_ResizeEnd(object sender, EventArgs e)
+        {
+            if (this.windowWidth != this.Width)
+            {
+                FamilyTree_AfterSelect(null, null);
+            }
+            windowWidth = this.Width;
         }
 
         private void EvaluateClicks(object source, System.Timers.ElapsedEventArgs e)
@@ -92,13 +101,14 @@ namespace rpmBIMTools
 
             if (senderNode.Level == 0)
             {
+                familyView.Controls.Clear(); // Remove any controls on the familyView
                 // Show Service Directory View
             }
             else
             {
                 // Show Family Directory View
                 TreeNode dirNode = senderNode.Level == 1 ? senderNode : senderNode.Parent;
-                if (cachedNode != dirNode || familyView.Controls.Count == 0) { // Updates Directory View if required
+                if (cachedNode != dirNode || familyView.Controls.Count == 0 || windowWidth != this.Width) { // Updates Directory View if required
                     familyView.Controls.Clear(); // Remove any controls on the familyView
                     // Calculate image size
                     int count = dirNode.GetNodeCount(false);
@@ -136,7 +146,7 @@ namespace rpmBIMTools
                         pLabel.BackColor = System.Drawing.Color.LightGray;
                         // Increase to next position
                         xPos = xPos + size + gap;
-                        if (xPos + size + gap > familyView.Size.Width)
+                        if (xPos + size + gap + 20 > familyView.Size.Width)
                         {
                             xPos = 0;
                             yPos = yPos + size + 27 + gap;
@@ -190,7 +200,8 @@ namespace rpmBIMTools
                 try { pBox.BorderStyle = selectedBox == pBox ? BorderStyle.Fixed3D : BorderStyle.None; } catch { return; }
             }
             FamilyTree.SelectedNode = FamilyTree.Nodes.Find("familyFile", true).First(tn => tn.FullPath == selectedBox.Name);
-            FamilyTree.Select();
+            //FamilyTree.Select();
+            familyView.Focus();
         }
 
         // Add family tree service directories

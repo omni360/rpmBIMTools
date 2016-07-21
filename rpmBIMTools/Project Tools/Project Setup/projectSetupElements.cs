@@ -19,6 +19,17 @@ namespace rpmBIMTools
             InitializeComponent();
         }
 
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Project-Setup");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Project-Setup");
+            e.Cancel = true;
+        }
+
         private void cancelButton_Click(object sender, EventArgs e)
         {
             TaskDialog cancelWarning = new TaskDialog("Project Setup - Cancel Process?");

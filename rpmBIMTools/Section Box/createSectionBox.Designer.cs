@@ -138,6 +138,7 @@
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.createButton);
             this.Controls.Add(this.viewName);
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1000, 1000);
@@ -146,8 +147,10 @@
             this.Name = "createSectionBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create Section Box";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.helpButtonClick);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.createSectionBox_FormClosing);
             this.Load += new System.EventHandler(this.createSectionBox_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.helpRequest);
             ((System.ComponentModel.ISupportInitialize)(this.sectionBoxOffset)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

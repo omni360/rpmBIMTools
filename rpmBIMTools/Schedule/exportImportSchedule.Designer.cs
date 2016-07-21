@@ -355,6 +355,7 @@
             this.Controls.Add(this.importButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.tabControl);
+            this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(600, 500);
@@ -363,7 +364,9 @@
             this.Name = "exportImportSchedules";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Export / Import Schedules";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.helpButtonClick);
             this.Load += new System.EventHandler(this.exportImportSchedules_Load);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.helpRequest);
             this.tabControl.ResumeLayout(false);
             this.exportTab.ResumeLayout(false);
             this.exportTab.PerformLayout();

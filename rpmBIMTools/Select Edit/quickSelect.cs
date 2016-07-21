@@ -32,6 +32,17 @@ namespace rpmBIMTools
             InitializeComponent();
         }
 
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Quick-Select");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Quick-Select");
+            e.Cancel = true;
+        }
+
         /// <summary>
         /// Used for storing category data for selection in the form
         /// </summary>

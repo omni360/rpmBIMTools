@@ -37,6 +37,17 @@ namespace rpmBIMTools
             InitializeComponent();
         }
 
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/LV-Schematics#create-lv-schematic");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/LV-Schematics#create-lv-schematic");
+            e.Cancel = true;
+        }
+
         private void createLVSchematic_Load(object sender, EventArgs e)
         {
             tab1TransformerValue.SelectedIndex = 0;

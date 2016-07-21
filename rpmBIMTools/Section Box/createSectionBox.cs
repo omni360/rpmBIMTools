@@ -33,6 +33,17 @@ namespace rpmBIMTools
             InitializeComponent();
         }
 
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Create-Section-Box");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Create-Section-Box");
+            e.Cancel = true;
+        }
+
         private void createSectionBox_Load(object sender, EventArgs e)
         {
             t = new Transaction(doc, "Create Section Box");

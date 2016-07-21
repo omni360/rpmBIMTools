@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -123,6 +124,17 @@ namespace rpmBIMTools
         public DwgNumCalc()
         {
             InitializeComponent();
+        }
+
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Drawing-Number-Calculator");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Drawing-Number-Calculator");
+            e.Cancel = true;
         }
 
         /// <summary>

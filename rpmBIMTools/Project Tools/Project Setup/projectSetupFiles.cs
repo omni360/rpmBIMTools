@@ -16,7 +16,18 @@ namespace rpmBIMTools
         {
             InitializeComponent();
         }
-        
+
+        private void helpRequest(object sender, HelpEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Project-Setup");
+        }
+
+        private void helpButtonClick(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/mcox86/rpmBIMTools/wiki/Project-Setup");
+            e.Cancel = true;
+        }
+
         private void filePathArchitectSelect_Click(object sender, EventArgs e)
         {
             if (openFileArchitect.ShowDialog() == DialogResult.OK)

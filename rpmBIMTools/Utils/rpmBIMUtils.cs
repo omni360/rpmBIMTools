@@ -26,7 +26,7 @@ namespace rpmBIMTools
                                                        .OfClass(typeof(FamilySymbol))
                                                        .OfCategory(BuiltInCategory.OST_TitleBlocks)
                                                     let type = elem as FamilySymbol
-                                                    where type.Name.Contains(titleBlockName) && type.Family.Name.Contains("NGB Drawing Sheet")
+                                                    where type.Name.Contains(titleBlockName) && type.Family.Name.Contains("NGB")
                                                     select type;
                 return titleBlocks.FirstOrDefault();
             }
