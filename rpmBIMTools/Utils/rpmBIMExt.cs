@@ -286,13 +286,17 @@ namespace rpmBIMTools {
         {
             return Regex.Replace(
                 Regex.Replace(
-                    str,
-                    @"(\P{Ll})(\P{Ll}\p{Ll})",
+                    Regex.Replace(
+                        str,
+                        @"(\P{Ll})(\P{Ll}\p{Ll})",
+                        "$1 $2"
+                        ),
+                    @"(\p{Ll})(\P{Ll})",
                     "$1 $2"
-                ),
-                @"(\p{Ll})(\P{Ll})",
-                "$1 $2"
-            );
+                    ),
+                @"\s+",
+                " "
+                );
         }
 
         /// <summary>

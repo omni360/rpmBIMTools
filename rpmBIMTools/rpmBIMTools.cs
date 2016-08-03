@@ -3,20 +3,23 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows;
     using System.Windows.Forms;
     using System.Windows.Media.Imaging;
+    using System.IO;
 
     using Autodesk.Revit.DB;
     using Autodesk.Revit.UI;
     using Autodesk.Revit.UI.Selection;
     using Autodesk.Revit.Attributes;
-
+    using Autodesk.Revit.UI.Events;
     public class Load : IExternalApplication
     {
         // Setup Live Document Variables
         public static UIApplication uiApp;
         public static Document liveDoc;
-
+        public static DockablePanes.FamilyLibrary familyLibraryPane;
+        
         public Result OnStartup(UIControlledApplication application)
         {
             Autodesk.Windows.RibbonTab modifyTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab("Modify");
@@ -26,6 +29,13 @@
             string rpmBIM_Tools_Path = (new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase)).AbsolutePath;
             string mainTabName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
 
+            // Register Dockable Library Family into Revit Application
+            familyLibraryPane = new DockablePanes.FamilyLibrary();
+            DockablePaneId dpid = new DockablePaneId(new Guid("{516EB33F-39C1-4BE5-9920-042A51C78DA8}"));
+            application.RegisterDockablePane(dpid, "NGB Family Library", familyLibraryPane);
+            application.ViewActivated += Application_ViewActivated;
+            application.Idling += Load.familyLibraryPane.insertFamily;
+          
             // Creating Ribbon Tab
             application.CreateRibbonTab(mainTabName);
 
@@ -50,24 +60,24 @@
 
             PushButton buttonCreateSectionBox = ribbonTabSectionBox.AddItem(new PushButtonData("createSetionBox", "Create\nSection Box", rpmBIM_Tools_Path, "rpmBIMTools.createSectionBox")) as PushButton;
             buttonCreateSectionBox.LargeImage = EmbededBitmap(Properties.Resources.CreateSectionBox32);
-            buttonCreateSectionBox.LongDescription = "TBC";
+            buttonCreateSectionBox.LongDescription = "Creates a section box using a interface with controls";
             PushButton buttonToggleSectionBox = ribbonTabSectionBox.AddItem(new PushButtonData("toogleSectionBox", "Toggle\nSection Box", rpmBIM_Tools_Path, "rpmBIMTools.toggleSectionBox")) as PushButton;
             buttonToggleSectionBox.LargeImage = EmbededBitmap(Properties.Resources.ToggleSectionBox32);
-            buttonToggleSectionBox.LongDescription = "TBC";
+            buttonToggleSectionBox.LongDescription = "Toggles any section boxes within a view if found";
 
             // Scope Box Panel
             RibbonPanel ribbonTabScopeBox = application.CreateRibbonPanel(mainTabName, "Scope Box");
 
             PushButton buttonPurgeScopeBox = ribbonTabScopeBox.AddItem(new PushButtonData("purgeScopeBox", "Purge\nScope Box", rpmBIM_Tools_Path, "rpmBIMTools.purgeScopeBox")) as PushButton;
             buttonPurgeScopeBox.LargeImage = EmbededBitmap(Properties.Resources.PurgeScopeBox32);
-            buttonPurgeScopeBox.LongDescription = "TBC";
+            buttonPurgeScopeBox.LongDescription = "Purging scope boxes with filtering controls";
 
             // Schedule Panel
             RibbonPanel ribbonTabSchedule = application.CreateRibbonPanel(mainTabName, "Schedule");
 
             PushButton buttonExportImportSchedules = ribbonTabSchedule.AddItem(new PushButtonData("exportImportSchedules", "Export / Import\nSchedules", rpmBIM_Tools_Path, "rpmBIMTools.exportImportSchedules")) as PushButton;
             buttonExportImportSchedules.LargeImage = EmbededBitmap(Properties.Resources.ExportImportSchedule32);
-            buttonExportImportSchedules.LongDescription = "TBC";
+            buttonExportImportSchedules.LongDescription = "Import and Export of Schematics to Revit Projects";
 
             // Schematic Panel
             RibbonPanel ribbonTabSchematic = application.CreateRibbonPanel(mainTabName, "Schematic");
@@ -91,7 +101,7 @@
             PushButton buttonQuickSelect = ribbonTabSelectEdit.AddItem(new PushButtonData("QuickSelect", "Quick\nSelect", rpmBIM_Tools_Path, "rpmBIMTools.quickSelect")) as PushButton;
             buttonQuickSelect.LargeImage = EmbededBitmap(Properties.Resources.QuickSelect32);
             buttonQuickSelect.LongDescription = "Advanced data selection utililty";
-            PushButton buttonFamilyLibrary = ribbonTabSelectEdit.AddItem(new PushButtonData("FamilyLibrary", "Family\nLibrary", rpmBIM_Tools_Path, "rpmBIMTools.familyLibrary")) as PushButton;
+            PushButton buttonFamilyLibrary = ribbonTabSelectEdit.AddItem(new PushButtonData("FamilyLibrary", "Family\nLibrary", rpmBIM_Tools_Path, "rpmBIMTools.toggleFamilyLibraryPane")) as PushButton;
             buttonFamilyLibrary.LargeImage = EmbededBitmap(Properties.Resources.FamilyLibrary32);
             buttonFamilyLibrary.LongDescription = "Utility for loading NGB families";
             PushButton buttonoFamilyNameEditor = ribbonTabSelectEdit.AddItem(new PushButtonData("FamilyNameEditor", "Family Name\nEditor", rpmBIM_Tools_Path, "rpmBIMTools.familyNameEditor")) as PushButton;
@@ -109,7 +119,6 @@
             buttonBulkFileUpdater.LongDescription = "TBC";
 
             // About
-
             RibbonPanel ribbonTabHelpInformation = application.CreateRibbonPanel(mainTabName, "Help");
 
             PushButton buttonWiki = ribbonTabHelpInformation.AddItem(new PushButtonData("wikiGuides", "Wiki\nGuides", rpmBIM_Tools_Path, "rpmBIMTools.openWikiSite")) as PushButton;
@@ -174,11 +183,22 @@
             return Result.Succeeded;
         }
 
+        /// <summary>
+        /// Keeps the document and application varibles updated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Application_ViewActivated(object sender, ViewActivatedEventArgs e)
+        {
+            Load.liveDoc = e.Document;
+            Load.uiApp = sender as UIApplication;
+        }
+
         private BitmapSource EmbededBitmap(System.Drawing.Bitmap bitmap)
         {
             BitmapSource destination;
             destination = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(),
-                IntPtr.Zero, System.Windows.Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             destination.Freeze();
             return destination;
         }
@@ -191,6 +211,7 @@
                 Autodesk.Windows.RibbonTab ModifyTab = sender as Autodesk.Windows.RibbonTab;
                 Autodesk.Windows.RibbonTab rpmBIMToolsTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab(mainTabName);
                 Autodesk.Windows.RibbonPanel CharacterPanel = Autodesk.Windows.ComponentManager.Ribbon.FindPanel("characterPanel", false);
+
                 if (ModifyTab.Title == "Modify | Text Notes")
                 {
                     if (CharacterPanel.Tab.Title == mainTabName)
@@ -231,6 +252,30 @@
             return Result.Succeeded;
         }
     }
+
+    /// /////////////////////////////
+    /// Toggle Family Library DockablePane
+    /// 
+    [Transaction(TransactionMode.Manual)]
+    
+    public class toggleFamilyLibraryPane : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref String message, ElementSet elements)
+        {
+            DockablePaneId dpid = new DockablePaneId(new Guid("{516EB33F-39C1-4BE5-9920-042A51C78DA8}"));
+            DockablePane dp = commandData.Application.GetDockablePane(dpid);
+            if (dp.IsShown())
+            {
+                dp.Hide();
+            }
+            else
+            {
+                dp.Show();
+            }
+            return Result.Succeeded;
+        }
+    }
+
 
     /////////////////////////////////
     // Drawing Sheet Tools

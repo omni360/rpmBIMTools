@@ -103,7 +103,16 @@
     <Compile Include="Admin Tools\Generate GUID\generateDialog.Designer.cs">
       <DependentUpon>generateDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Rename.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\Rename.Designer.cs">
+      <DependentUpon>Rename.cs</DependentUpon>
+    </Compile>
     <Compile Include="Misc\SpecialCharacters.cs" />
+    <Compile Include="DockablePanes\FamilyLibrary.xaml.cs">
+      <DependentUpon>FamilyLibrary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Project Tools\Project Sheet Duplicator\projectSheetSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +251,9 @@
       <DependentUpon>generateDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Utils\Rename.resx">
+      <DependentUpon>Rename.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Schedule\exportImportSchedule.resx">
       <DependentUpon>exportImportSchedule.cs</DependentUpon>
     </EmbeddedResource>
@@ -313,6 +325,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Admin Tools\Bulk File Updater\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DockablePanes\FamilyLibrary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

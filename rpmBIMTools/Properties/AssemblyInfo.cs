@@ -33,7 +33,7 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.17.*")]
+[assembly: AssemblyVersion("1.18.*")]
 //[assembly: AssemblyFileVersion("1.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-GB")]
 
@@ -75,3 +75,4 @@ using System.Resources;
 // 1.17.6046 - 21/07/2016   (Update) Ribbon - Added Wiki Guide and About Buttons
 //                          (Update) Other - Added Help (F1) Support for all dialog boxes
 //                          (Update) Family Library - Corrected Scrolling support for family icon panel and allow width change to give more icon columns in grid
+// 1.18.6059 - 03/08/2016   (New) Family Library - Addon reworked into a dockable pane version that is intigrated with revit

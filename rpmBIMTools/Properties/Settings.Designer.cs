@@ -418,5 +418,29 @@ namespace rpmBIMTools.Properties {
                 this["familyLibrary_width"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string familyLibrary_serviceDir {
+            get {
+                return ((string)(this["familyLibrary_serviceDir"]));
+            }
+            set {
+                this["familyLibrary_serviceDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string familyLibrary_groupDir {
+            get {
+                return ((string)(this["familyLibrary_groupDir"]));
+            }
+            set {
+                this["familyLibrary_groupDir"] = value;
+            }
+        }
     }
 }
