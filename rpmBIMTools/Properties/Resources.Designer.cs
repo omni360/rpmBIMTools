@@ -263,6 +263,16 @@ namespace rpmBIMTools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Lightning16 {
+            get {
+                object obj = ResourceManager.GetObject("Lightning16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LinkedElements16 {
             get {
                 object obj = ResourceManager.GetObject("LinkedElements16", resourceCulture);
@@ -385,6 +395,16 @@ namespace rpmBIMTools.Properties {
         internal static System.Drawing.Bitmap ToggleSectionBox32 {
             get {
                 object obj = ResourceManager.GetObject("ToggleSectionBox32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Warning16 {
+            get {
+                object obj = ResourceManager.GetObject("Warning16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -5,15 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:rpmBIMTools.DockablePanes"
              xmlns:properties="clr-namespace:rpmBIMTools.Properties"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              SnapsToDevicePixels="True" d:DesignHeight="300" d:DesignWidth="200" Initialized="familyLibrary_Initialized">
     <Page.Background>
         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
     </Page.Background>
     <Grid>
-        <Label Content="Search:" HorizontalAlignment="Left" Margin="1,-3,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,0.069" Height="26" Width="48"/>
+        <Label Content="Search:" HorizontalAlignment="Left" Margin="1,-3,0,0" VerticalAlignment="Top" Height="26" Width="48"/>
         <TextBox x:Name="search" VerticalAlignment="Top" Margin="60,1,1,0" Height="22" TextChanged="SearchTextChanged" />
-        <Label Content="Service:" HorizontalAlignment="Left" Margin="1,23,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,0.069" Height="26" Width="50"/>
+        <Label Content="Service:" HorizontalAlignment="Left" Margin="1,23,0,0" VerticalAlignment="Top" Height="26" Width="50"/>
         <ComboBox x:Name="serviceBox" Margin="60,27,1,0" VerticalAlignment="Top" Height="22" SelectionChanged="serviceBox_SelectionChanged"/>
         <Label Content="Group:" HorizontalAlignment="Left" Margin="1,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,0.069" Height="26" Width="46"/>
         <ComboBox x:Name="groupBox" Margin="60,54,1,0" VerticalAlignment="Top" Height="22" SelectionChanged="groupBox_SelectionChanged"/>
@@ -26,10 +26,11 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Click="queFamily" Height="139" Width="104" Tag="{Binding file}" ToolTip="{Binding Tooltip}">
+                        <Button Click="queFamily" Height="139" Width="104" Tag="{Binding file}" ToolTip="{Binding Tooltip}" >
                             <StackPanel Background="White">
                                 <Image Source="{Binding Path}" Height="98" Width="98" Stretch="{Binding Stretch}" />
                                 <TextBlock Text="{Binding Name}" TextAlignment="Center" Padding="2" Height="37" Width="98" Background="LightGray" TextWrapping="WrapWithOverflow" FontSize="12" />
+                                <Image Source="{Binding Warning}" Height="16" Width="16" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-130,5,0" Visibility="{Binding ValidVersion}"/>
                             </StackPanel>
                             <Button.ContextMenu>
                                 <ContextMenu Visibility="{Binding Menu}">
@@ -39,7 +40,7 @@
                                     <Separator />
                                     <MenuItem Header="Edit" Click="EditCustomFamily" />
                                     <MenuItem Header="Rename" Click="RenameCustomFamily" />
-                                    <MenuItem Header="Delete" Click="DeleteCustomFamily" />                                    
+                                    <MenuItem Header="Delete" Click="DeleteCustomFamily" />
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
@@ -48,7 +49,12 @@
             </ItemsControl>
         </ScrollViewer>
         <Border Background="LightGray" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="0,1,0,0" Padding="5">
-            <CheckBox Name="loadAllTypes" Content="Load All Types" Click="loadAllTypes_Click" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=familyLibrary_allTypes}"/>
+            <Grid>
+                <CheckBox Name="loadAllTypes" Content="Load All Types" Click="loadAllTypes_Click" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=familyLibrary_allTypes}" Margin="0,0,35,0"/>
+                <TextBlock Name="help" HorizontalAlignment="Right" ToolTip="Provides access to online help about this module.">
+                    <Hyperlink RequestNavigate="goToHelp" NavigateUri="https://github.com/mcox86/rpmBIMTools/wiki/Family-Library">Help</Hyperlink>
+                </TextBlock>
+            </Grid>
         </Border>
     </Grid>
 </Page>

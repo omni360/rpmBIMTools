@@ -18,10 +18,12 @@
         // Setup Live Document Variables
         public static UIApplication uiApp;
         public static Document liveDoc;
+        public static string revitVer;
         public static DockablePanes.FamilyLibrary familyLibraryPane;
         
         public Result OnStartup(UIControlledApplication application)
         {
+            revitVer = application.ControlledApplication.VersionNumber;
             Autodesk.Windows.RibbonTab modifyTab = Autodesk.Windows.ComponentManager.Ribbon.FindTab("Modify");
             modifyTab.PropertyChanged += AddSpecialCharacterTab;
 
@@ -31,6 +33,7 @@
 
             // Register Dockable Library Family into Revit Application
             familyLibraryPane = new DockablePanes.FamilyLibrary();
+
             DockablePaneId dpid = new DockablePaneId(new Guid("{516EB33F-39C1-4BE5-9920-042A51C78DA8}"));
             application.RegisterDockablePane(dpid, "NGB Family Library", familyLibraryPane);
             application.ViewActivated += Application_ViewActivated;

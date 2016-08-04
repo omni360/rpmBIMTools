@@ -33,6 +33,8 @@ namespace rpmBIMTools.DockablePanes
         private DirectoryInfo groupDir = null;
         private BitmapSource defaultImage = null;
         private BitmapSource addCustomImage = null;
+        private BitmapSource errorCustomImage = null;
+        private BitmapSource upgradeCustomImage = null;
         public FileInfo familyFile;
         public List<FileInfo> familyIcon = new List<FileInfo>();
         public Family family;
@@ -54,6 +56,8 @@ namespace rpmBIMTools.DockablePanes
         {
             defaultImage = EmbededBitmap(Properties.Resources.Preview);
             addCustomImage = EmbededBitmap(Properties.Resources.FamilyAdd32);
+            errorCustomImage = EmbededBitmap(Properties.Resources.Warning16);
+            upgradeCustomImage = EmbededBitmap(Properties.Resources.Lightning16);
             foreach (DirectoryInfo serviceDir in familyDirectory.GetDirectories())
             {
                 if (serviceDir.Name == "Custom" || serviceDir.GetDirectories().Count() != 0) {
@@ -63,6 +67,16 @@ namespace rpmBIMTools.DockablePanes
             }
             this.serviceBox.IsDropDownOpen = true; // UI Fix to correct revit freeze issue
             this.serviceBox.IsDropDownOpen = false; // UI Fix to correct revit freeze issue
+        }
+
+        private void goToHelp(object sender, RequestNavigateEventArgs e)
+        {
+            Hyperlink source = sender as Hyperlink;
+            if (source != null)
+            {
+                System.Diagnostics.Process.Start(source.NavigateUri.ToString());
+                e.Handled = true;
+            }
         }
 
         private void SearchTextChanged(object sender, TextChangedEventArgs e)
@@ -147,15 +161,20 @@ namespace rpmBIMTools.DockablePanes
             {
                 string filePath = System.IO.Path.Combine(file.DirectoryName, System.IO.Path.GetFileNameWithoutExtension(file.FullName));
                 ImageSource imgSrc = FindLibraryIcon(filePath);
+                BasicFileInfo bfi = BasicFileInfo.Extract(filePath + ".rfa");
+                int validCheck = string.Compare(new string(bfi.SavedInVersion.Where(char.IsDigit).ToArray()), Load.revitVer);
+                string validVer = validCheck != 0 ? "Visable" : "Hidden";
                 FamilyItems.Items.Add(new FamilyItem()
                 {
                     file = filePath + ".rfa",
                     Name = System.IO.Path.GetFileNameWithoutExtension(file.FullName).Split('_').Last().SplitCamelCase(),
                     Path = imgSrc,
+                    Warning = validCheck > 0 ? errorCustomImage : upgradeCustomImage,
                     Stretch = imgSrc.Height > 98 || imgSrc.Width > 98 ? Stretch.Fill : Stretch.None,
                     Tooltip = System.IO.Path.GetFileNameWithoutExtension(file.FullName),
                     Menu = MenuStatus,
-                    IconStatus = imgSrc == defaultImage ? "Generate Icon" : "Update Icon"
+                    IconStatus = imgSrc == defaultImage ? "Generate Icon" : "Update Icon",
+                    ValidVersion = validVer
                 });
             }
         }
@@ -199,11 +218,13 @@ namespace rpmBIMTools.DockablePanes
         {
             public string file { get; set; }
             public ImageSource Path { get; set; }
+            public ImageSource Warning { get; set; }
             public string Name { get; set; }
             public Stretch Stretch { get; set; }
             public string Tooltip { get; set; }
             public string Menu { get; set; }
             public string IconStatus { get; set; }
+            public string ValidVersion { get; set; }
         }
 
         private BitmapSource EmbededBitmap(System.Drawing.Bitmap bitmap)
@@ -288,7 +309,7 @@ namespace rpmBIMTools.DockablePanes
             }
             catch (Exception ex)
             {
-                TaskDialog.Show("Test", ex.Message);
+                TaskDialog.Show("NGB Family Library", ex.Message);
             }
         }
 
@@ -300,9 +321,16 @@ namespace rpmBIMTools.DockablePanes
 
         public void EditCustomFamily(object sender, RoutedEventArgs e)
         {
-            Button button = ((ContextMenu)((MenuItem)sender).Parent).PlacementTarget as Button;
-            FileInfo editFamily = new FileInfo(button.Tag.ToString());
-            if (editFamily.Exists) Load.uiApp.OpenAndActivateDocument(editFamily.FullName);
+            try
+            {
+                Button button = ((ContextMenu)((MenuItem)sender).Parent).PlacementTarget as Button;
+                FileInfo editFamily = new FileInfo(button.Tag.ToString());
+                if (editFamily.Exists) Load.uiApp.OpenAndActivateDocument(editFamily.FullName);
+            }
+            catch (Exception ex)
+            {
+                TaskDialog.Show("NGB Family Library", ex.Message);
+            }
         }
 
         public void RenameCustomFamily(object sender, RoutedEventArgs e)
@@ -330,7 +358,7 @@ namespace rpmBIMTools.DockablePanes
                     }
                 }
             }
-            catch (Exception ex) { TaskDialog.Show("Test", ex.Message); }
+            catch (Exception ex) { TaskDialog.Show("NGB Family Library", ex.Message); }
         }
 
         public void DeleteCustomFamily(object sender, RoutedEventArgs e)
@@ -366,7 +394,7 @@ namespace rpmBIMTools.DockablePanes
             }
             catch (Exception ex)
             {
-                TaskDialog.Show("Test", ex.Message);
+                TaskDialog.Show("NGB Family Library", ex.Message);
             }
         }
 

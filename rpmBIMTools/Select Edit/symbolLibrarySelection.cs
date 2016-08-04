@@ -15,6 +15,7 @@ namespace rpmBIMTools
         public symbolLibrarySelection()
         {
             InitializeComponent();
+            symbolPanel.Select();
         }
 
         private void helpRequest(object sender, HelpEventArgs e)
