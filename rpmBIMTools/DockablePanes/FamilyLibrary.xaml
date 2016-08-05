@@ -12,7 +12,7 @@
     </Page.Background>
     <Grid>
         <Label Content="Search:" HorizontalAlignment="Left" Margin="1,-3,0,0" VerticalAlignment="Top" Height="26" Width="48"/>
-        <TextBox x:Name="search" VerticalAlignment="Top" Margin="60,1,1,0" Height="22" TextChanged="SearchTextChanged" />
+        <TextBox x:Name="search" VerticalAlignment="Top" Margin="60,1,1,0" Height="22" TextChanged="SearchTimerStart"/>
         <Label Content="Service:" HorizontalAlignment="Left" Margin="1,23,0,0" VerticalAlignment="Top" Height="26" Width="50"/>
         <ComboBox x:Name="serviceBox" Margin="60,27,1,0" VerticalAlignment="Top" Height="22" SelectionChanged="serviceBox_SelectionChanged"/>
         <Label Content="Group:" HorizontalAlignment="Left" Margin="1,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.514,0.069" Height="26" Width="46"/>

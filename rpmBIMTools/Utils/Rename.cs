@@ -29,7 +29,7 @@ namespace rpmBIMTools
         {
             var textboxSender = (System.Windows.Forms.TextBox)sender;
             var cursorPosition = textboxSender.SelectionStart;
-            Regex reg = new Regex("[^0-9a-zA-Z -]");
+            Regex reg = new Regex("[^0-9a-zA-Z_ -]");
             int matches = reg.Matches(textboxSender.Text).Count;
             textboxSender.Text = reg.Replace(textboxSender.Text, "");
             textboxSender.SelectionStart = (cursorPosition - matches) < 0 ? 0 : cursorPosition - matches;

@@ -14,11 +14,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
-
+using System.Windows.Threading;
+using System.Text.RegularExpressions;
 using Autodesk.Revit;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI.Events;
+using ComponentManager = Autodesk.Windows.ComponentManager;
+using IWin32Window = System.Windows.Forms.IWin32Window;
+using Keys = System.Windows.Forms.Keys;
 
 namespace rpmBIMTools.DockablePanes
 {
@@ -35,14 +39,19 @@ namespace rpmBIMTools.DockablePanes
         private BitmapSource addCustomImage = null;
         private BitmapSource errorCustomImage = null;
         private BitmapSource upgradeCustomImage = null;
+        private DispatcherTimer searchTimer;
         public FileInfo familyFile;
         public List<FileInfo> familyIcon = new List<FileInfo>();
         public Family family;
         public FamilySymbol familySymbol;
+        IWin32Window revit_window = new JtWindowHandle(ComponentManager.ApplicationWindow);
 
         public FamilyLibrary()
         {
             InitializeComponent();
+            searchTimer = new DispatcherTimer();
+            searchTimer.Tick += SearchTextChanged;
+            searchTimer.Interval = new TimeSpan(0,0,1);
         }
 
         public void SetupDockablePane(DockablePaneProviderData data)
@@ -57,7 +66,7 @@ namespace rpmBIMTools.DockablePanes
             defaultImage = EmbededBitmap(Properties.Resources.Preview);
             addCustomImage = EmbededBitmap(Properties.Resources.FamilyAdd32);
             errorCustomImage = EmbededBitmap(Properties.Resources.Warning16);
-            upgradeCustomImage = EmbededBitmap(Properties.Resources.Lightning16);
+            upgradeCustomImage = EmbededBitmap(Properties.Resources.Upgrade16);
             foreach (DirectoryInfo serviceDir in familyDirectory.GetDirectories())
             {
                 if (serviceDir.Name == "Custom" || serviceDir.GetDirectories().Count() != 0) {
@@ -79,8 +88,21 @@ namespace rpmBIMTools.DockablePanes
             }
         }
 
-        private void SearchTextChanged(object sender, TextChangedEventArgs e)
+        private void SearchTimerStart(object sender, TextChangedEventArgs e)
         {
+            searchTimer.Stop();
+            var textboxSender = (System.Windows.Controls.TextBox)sender;
+            var cursorPosition = textboxSender.SelectionStart;
+            Regex reg = new Regex("[^0-9a-zA-Z_ -]");
+            int matches = reg.Matches(textboxSender.Text).Count;
+            textboxSender.Text = reg.Replace(textboxSender.Text, "");
+            textboxSender.SelectionStart = (cursorPosition - matches) < 0 ? 0 : cursorPosition - matches;
+            searchTimer.Start();
+        }
+
+        private void SearchTextChanged(object sender, EventArgs e)
+        {
+            searchTimer.Stop();
             if (string.IsNullOrWhiteSpace(search.Text))
             {
                 serviceBox.IsEnabled = true;
@@ -541,6 +563,14 @@ namespace rpmBIMTools.DockablePanes
             // Insert Family Symbol into Revit project
             if (familySymbol != null)
             {
+                // Press Esc key twice to exit all commands in revit
+                WindowsMessaging.PostWindowsMessage(
+                    (int)ComponentManager.ApplicationWindow, WindowsMessaging.WM_KEYDOWN,
+                    (int)Keys.Escape, 0);
+                WindowsMessaging.PostWindowsMessage(
+                    (int)ComponentManager.ApplicationWindow, WindowsMessaging.WM_KEYDOWN,
+                    (int)Keys.Escape, 0);
+                // Start Family Insertion
                 ElementType familyType = doc.GetElement(familySymbol.Id) as ElementType;
                 uiApp.ActiveUIDocument.PostRequestForElementTypePlacement(familyType);
                 familySymbol = null;

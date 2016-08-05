@@ -103,6 +103,7 @@
     <Compile Include="Admin Tools\Generate GUID\generateDialog.Designer.cs">
       <DependentUpon>generateDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\JtWindowHandle.cs" />
     <Compile Include="Utils\Rename.cs">
       <SubType>Form</SubType>
     </Compile>

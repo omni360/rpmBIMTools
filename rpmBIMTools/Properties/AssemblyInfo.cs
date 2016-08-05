@@ -76,3 +76,4 @@ using System.Resources;
 //                          (Update) Other - Added Help (F1) Support for all dialog boxes
 //                          (Update) Family Library - Corrected Scrolling support for family icon panel and allow width change to give more icon columns in grid
 // 1.18.6059 - 03/08/2016   (New) Family Library - Addon reworked into a dockable pane version that is intigrated with revit
+// 1.18.6061 - 05/08/2016   (Update) Family Library - Addtional changes to improve functionality
