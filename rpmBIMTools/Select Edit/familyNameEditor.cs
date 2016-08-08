@@ -27,6 +27,7 @@ namespace rpmBIMTools {
         Regex regex = new Regex(@"^[MEG]{1}-Pr[0-9a-zA-Z_]*-[MA]{1}[0-9a-zA-Z_-]*$");
         Regex regexBS8541 = new Regex(@"^[0-9a-zA-Z-]*_[0-9a-zA-Z-]*_[0-9a-zA-Z-]*$");
         List<Uniclass> UniclassData = new List<Uniclass>();
+        ICollection<Family> families = new List<Family>();
         int[] categoryCheckElec =
         {
             (int)BuiltInCategory.OST_ConduitFitting, (int)BuiltInCategory.OST_ConduitFittingTags,
@@ -108,18 +109,28 @@ namespace rpmBIMTools {
             // Populate Uniclass Combobox
             UpdateUniclassField();
             // Collect Family Dataset for List
-            ICollection<Family> families = new FilteredElementCollector(doc)
+            families = new FilteredElementCollector(doc)
                   .OfClass(typeof(Family))
                     .Cast<Family>()
                     .ToList();
             // Populate & Sort Family Selection DataGridView
-            foreach (Family family in families)
+            foreach (Family family in string.IsNullOrWhiteSpace(searchText.Text) ? families : families.Where(f => f.Name.Contains(searchText.Text)).ToList())
             {
                 familySelection.Rows.Add(family.UniqueId, family.Name, regex.IsMatch(family.Name) ? "true" : regexBS8541.IsMatch(family.Name) ? "true" : "false");
             }
             familySelection.Sort(familySelection.Columns[1], ListSortDirection.Ascending);
             familySelection.CurrentCell = familySelection[1, 0];
-            familySelection_SelectionChanged(sender, e);
+            familySelection_SelectionChanged(null, null);
+        }
+
+        private void PopulateFamilies()
+        {
+
+        }
+
+        private void searchText_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void UpdateUniclassField()

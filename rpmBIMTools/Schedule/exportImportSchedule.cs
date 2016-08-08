@@ -29,6 +29,7 @@ namespace rpmBIMTools
         Document doc = rpmBIMTools.Load.liveDoc;
         UIApplication uiApp = rpmBIMTools.Load.uiApp;
         FolderSelectDialog exportFolderDialog = new FolderSelectDialog();
+        FolderBrowserDialog exportFolderDialog2 = new FolderBrowserDialog();
         int rIndex, cIndex;
 
         public exportImportSchedules()
@@ -68,6 +69,10 @@ namespace rpmBIMTools
             exportFolderDialog.Title = "Select Export Folder";
             exportFolderDialog.InitialDirectory = Properties.Settings.Default.exportImportSchedule_OutputFolder;
             exportFolder.Text = Properties.Settings.Default.exportImportSchedule_OutputFolder;
+
+            // Export Folder Select Default Settings (Back up version)
+            exportFolderDialog2.Description = "Select Export Folder";
+            exportFolderDialog2.SelectedPath = Properties.Settings.Default.exportImportSchedule_OutputFolder;
         }
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,12 +111,24 @@ namespace rpmBIMTools
 
         private void exportFolderButton_Click(object sender, EventArgs e)
         {
-            if (exportFolderDialog.ShowDialog())
+            try
             {
-                exportFolder.Text = exportFolderDialog.FileName;
-                exportFolderDialog.InitialDirectory = exportFolderDialog.FileName;
-                Properties.Settings.Default.exportImportSchedule_OutputFolder = exportFolder.Text;
-                Properties.Settings.Default.Save();
+                if (exportFolderDialog.ShowDialog())
+                {
+                    exportFolder.Text = exportFolderDialog.FileName;
+                    exportFolderDialog.InitialDirectory = exportFolderDialog.FileName;
+                    Properties.Settings.Default.exportImportSchedule_OutputFolder = exportFolder.Text;
+                    Properties.Settings.Default.Save();
+                }
+            }
+            catch (MissingMethodException)
+            {
+                if (exportFolderDialog2.ShowDialog() == DialogResult.OK)
+                {
+                    exportFolder.Text = exportFolderDialog2.SelectedPath;
+                    Properties.Settings.Default.exportImportSchedule_OutputFolder = exportFolder.Text;
+                    Properties.Settings.Default.Save();
+                }
             }
 
         }

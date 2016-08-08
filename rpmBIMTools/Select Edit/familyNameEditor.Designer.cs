@@ -37,7 +37,7 @@
             this.familiesIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.familiesNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.familiesCompliantColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.familiesLabel = new System.Windows.Forms.Label();
+            this.searchLabel = new System.Windows.Forms.Label();
             this.familySelectionNext = new System.Windows.Forms.Button();
             this.familyCounter = new System.Windows.Forms.Label();
             this.familyCompliant = new System.Windows.Forms.PictureBox();
@@ -64,6 +64,7 @@
             this.familyName = new System.Windows.Forms.Label();
             this.familyIcon = new System.Windows.Forms.PictureBox();
             this.closeEditor = new System.Windows.Forms.Button();
+            this.searchText = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -119,8 +120,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.searchText);
             this.splitContainer1.Panel1.Controls.Add(this.familySelection);
-            this.splitContainer1.Panel1.Controls.Add(this.familiesLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.searchLabel);
             this.splitContainer1.Panel1.Controls.Add(this.familySelectionNext);
             this.splitContainer1.Panel1.Controls.Add(this.familySelectionPrevious);
             this.splitContainer1.Panel1.Controls.Add(this.familyCounter);
@@ -158,7 +160,7 @@
             this.familiesIdColumn,
             this.familiesNameColumn,
             this.familiesCompliantColumn});
-            this.familySelection.Location = new System.Drawing.Point(3, 23);
+            this.familySelection.Location = new System.Drawing.Point(3, 36);
             this.familySelection.MultiSelect = false;
             this.familySelection.Name = "familySelection";
             this.familySelection.ReadOnly = true;
@@ -166,7 +168,7 @@
             this.familySelection.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
             this.familySelection.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.familySelection.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.familySelection.Size = new System.Drawing.Size(290, 396);
+            this.familySelection.Size = new System.Drawing.Size(290, 383);
             this.familySelection.TabIndex = 0;
             this.familySelection.SelectionChanged += new System.EventHandler(this.familySelection_SelectionChanged);
             // 
@@ -197,14 +199,14 @@
             this.familiesCompliantColumn.TrueValue = "true";
             this.familiesCompliantColumn.Width = 40;
             // 
-            // familiesLabel
+            // searchLabel
             // 
-            this.familiesLabel.AutoSize = true;
-            this.familiesLabel.Location = new System.Drawing.Point(3, 7);
-            this.familiesLabel.Name = "familiesLabel";
-            this.familiesLabel.Size = new System.Drawing.Size(80, 13);
-            this.familiesLabel.TabIndex = 6;
-            this.familiesLabel.Text = "Project Families";
+            this.searchLabel.AutoSize = true;
+            this.searchLabel.Location = new System.Drawing.Point(3, 13);
+            this.searchLabel.Name = "searchLabel";
+            this.searchLabel.Size = new System.Drawing.Size(44, 13);
+            this.searchLabel.TabIndex = 6;
+            this.searchLabel.Text = "Search:";
             // 
             // familySelectionNext
             // 
@@ -511,6 +513,16 @@
             this.closeEditor.UseVisualStyleBackColor = true;
             this.closeEditor.Click += new System.EventHandler(this.closeEditor_Click);
             // 
+            // searchText
+            // 
+            this.searchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchText.Location = new System.Drawing.Point(53, 10);
+            this.searchText.Name = "searchText";
+            this.searchText.Size = new System.Drawing.Size(240, 20);
+            this.searchText.TabIndex = 7;
+            this.searchText.TextChanged += new System.EventHandler(this.searchText_TextChanged);
+            // 
             // familyNameEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -553,7 +565,7 @@
         private System.Windows.Forms.Button familySelectionNext;
         private System.Windows.Forms.TextBox familyPresentation;
         private System.Windows.Forms.Button closeEditor;
-        private System.Windows.Forms.Label familiesLabel;
+        private System.Windows.Forms.Label searchLabel;
         private System.Windows.Forms.Label familyCounter;
         private System.Windows.Forms.Label fieldLabel6;
         private System.Windows.Forms.Label fieldLabel5;
@@ -580,5 +592,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn familiesCompliantColumn;
         private System.Windows.Forms.RadioButton familyFormatBS8541;
         private System.Windows.Forms.TextBox familyType;
+        private System.Windows.Forms.TextBox searchText;
     }
 }
